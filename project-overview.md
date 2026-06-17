@@ -162,10 +162,7 @@ The system supports location-based search, disaster coverage monitoring, shelter
 |----|------|--------------|
 | 2311960 | Md. Mahmudul Hasan | 100% |
 | 2310604 | Ridwan Hasan Khandakar | 100% |
-| 2022752 | Kazi Fatema Tuj Johra | 100% |
-| 2312226 | Fouzia Abida | 100% |
-| 2310690 | Syed Mehedi Hussain | 100% |
-| 2210892 | Sowhardra Paul | 100% |
+
 
 ---
 
