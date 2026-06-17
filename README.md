@@ -58,3 +58,5 @@ npm run dev     # starts backend + frontend together
 - Fundraising campaigns
 - NGO volunteer opportunity management
 - Certificate management
+
+my name is VERA
