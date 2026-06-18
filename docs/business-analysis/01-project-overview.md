@@ -2,6 +2,8 @@
 
 **VERA: Volunteer Emergency Response Alliance**
 
+## Document Information
+
 | Field | Detail |
 |-------|--------|
 | **Course** | CSE307 — System Analysis and Design |
@@ -9,6 +11,17 @@
 | **Instructor** | Dr. Razib Hayat Khan |
 | **Phase** | 1 — Project Idea & Business Analysis |
 | **Submission Date** | 06/06/2026 |
+
+## Table of Contents
+
+1. [1.1 Project Title](#11-project-title)
+2. [1.2 Project Goal](#12-project-goal)
+3. [1.3 Project Objectives](#13-project-objectives)
+4. [1.4 Proposed Solution (Summary)](#14-proposed-solution-summary)
+5. [1.5 Scope](#15-scope)
+6. [1.6 Project Team](#16-project-team)
+7. [1.7 Expected Outcomes](#17-expected-outcomes)
+8. [1.8 Related Documents](#18-related-documents)
 
 ---
 
@@ -68,6 +81,7 @@ VERA is a **web-based Emergency Assistance and Resource Coordination Information
 ## 1.5 Scope
 
 ### In Scope
+
 - User registration and role-based authentication
 - Emergency and blood request management
 - Volunteer verification and opportunity management
@@ -78,6 +92,7 @@ VERA is a **web-based Emergency Assistance and Resource Coordination Information
 - Disaster coverage monitoring and admin reports
 
 ### Out of Scope (Current Phase)
+
 - Native mobile applications
 - SMS/offline disaster fallback
 - Government system integrations
@@ -112,11 +127,20 @@ VERA is a **web-based Emergency Assistance and Resource Coordination Information
 
 | Document | Description |
 |----------|-------------|
-| `02-problem-statement.md` | Detailed problem analysis |
-| `03-stakeholder-analysis.md` | Stakeholder mapping and needs |
-| `04-information-gathering.md` | Research methods and sources |
-| `05-interviews.md` | Interview plan and findings |
-| `06-surveys.md` | Survey design and results |
+| [`02-problem-statement.md`](./02-problem-statement.md) | Detailed problem analysis |
+| [`03-stakeholder-analysis.md`](./03-stakeholder-analysis.md) | Stakeholder mapping and needs |
+| [`04-information-gathering.md`](./04-information-gathering.md) | Research methods and sources |
+| [`05-interviews.md`](./05-interviews.md) | Interview plan and findings |
+| [`06-surveys.md`](./06-surveys.md) | Survey design and results |
+
+---
+
+## Phase Navigation
+
+| | Document |
+|---|----------|
+| **Current** | 01 — Project Overview |
+| **Next** | [02 — Problem Statement](./02-problem-statement.md) |
 
 ---
 
