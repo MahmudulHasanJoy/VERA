@@ -3,7 +3,7 @@
 **Document:** 18-erd.md
 **Phase:** Technical Design Document (TDD)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Purpose
 
@@ -198,3 +198,4 @@ erDiagram
 ## 5. Traceability Note
 
 This ERD is the data-design counterpart to the functional requirements in `13-functional-requirements.md`. Full column-level definitions, constraints, and indexing decisions are in `21-database-design.md`.
+

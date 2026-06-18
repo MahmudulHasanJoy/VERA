@@ -3,7 +3,7 @@
 **Document:** 21-database-design.md
 **Phase:** Technical Design Document (TDD)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Purpose
 
@@ -246,3 +246,4 @@ Tables are currently created automatically at application startup via `Base.meta
 ## 19. Traceability Note
 
 This schema implements the entities and relationships modeled conceptually in `18-erd.md` and is exposed to clients through the endpoints documented in `22-api-design.md`.
+

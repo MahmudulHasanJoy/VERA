@@ -3,7 +3,7 @@
 **Document:** 20-tdd.md
 **Project:** VERA — Volunteer Emergency Response Alliance
 **Course:** CSE307 — System Analysis and Design, Section 02
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Introduction
 
@@ -92,3 +92,4 @@ Carried over from `01-project-overview.md`, Section 13, with technical framing:
 
 ---
 *This TDD is the fourth and final documentation phase for VERA, following the Project Idea & Business Analysis, PRD, and SRS phases.*
+

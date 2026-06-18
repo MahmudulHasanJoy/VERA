@@ -3,7 +3,7 @@
 **Document:** 13-functional-requirements.md
 **Phase:** Software Requirements Specification (SRS)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Purpose
 
@@ -135,3 +135,4 @@ This document lists the functional requirements (FRs) of the VERA platform — t
 ## 15. Traceability Note
 
 These functional requirements correspond directly to the implemented API surface, detailed in `22-api-design.md`, and the underlying schema in `21-database-design.md`. Use cases elaborating on representative end-to-end flows are documented in `15-use-cases.md`.
+

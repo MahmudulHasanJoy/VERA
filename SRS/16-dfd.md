@@ -3,7 +3,7 @@
 **Document:** 16-dfd.md
 **Phase:** Software Requirements Specification (SRS)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Purpose
 
@@ -163,3 +163,4 @@ Full column-level detail for each table is documented in `21-database-design.md`
 ## 6. Traceability Note
 
 Each process above corresponds to one or more functional requirement modules in `13-functional-requirements.md`, and each data store corresponds to one or more entities in `18-erd.md`.
+

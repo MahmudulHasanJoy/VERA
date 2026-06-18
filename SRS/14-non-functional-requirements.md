@@ -3,7 +3,7 @@
 **Document:** 14-non-functional-requirements.md
 **Phase:** Software Requirements Specification (SRS)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Purpose
 
@@ -85,3 +85,4 @@ This document defines the quality attributes VERA must satisfy — how the syste
 ## 11. Traceability Note
 
 These quality attributes apply across all functional modules in `13-functional-requirements.md` and inform the architectural decisions documented in `19-system-design.md` and `20-tdd.md`.
+
