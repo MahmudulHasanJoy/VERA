@@ -6,11 +6,11 @@
 
 | Field | Detail |
 |-------|--------|
-| **Course** | CSE307 — System Analysis and Design |
-| **Section** | 02 |
-| **Instructor** | Dr. Razib Hayat Khan |
+| **Course** | CSE309 - Web Design |
+| **Section** | 06 |
+| **Instructor** | Sayef Reyadh |
 | **Phase** | 1 — Project Idea & Business Analysis |
-| **Submission Date** | 06/06/2026 |
+| **Submission Date** | 18/06/2026 |
 
 ## Table of Contents
 
@@ -106,10 +106,6 @@ VERA is a **web-based Emergency Assistance and Resource Coordination Information
 |------------|------|--------------|
 | 2311960 | Md. Mahmudul Hasan | 100% |
 | 2310604 | Ridwan Hasan Khandakar | 100% |
-| 2022752 | Kazi Fatema Tuj Johra | 100% |
-| 2312226 | Fouzia Abida | 100% |
-| 2310690 | Syed Mehedi Hussain | 100% |
-| 2210892 | Sowhardra Paul | 100% |
 
 ---
 
