@@ -3,7 +3,7 @@
 **Document:** 17-srs.md
 **Project:** VERA — Volunteer Emergency Response Alliance
 **Course:** CSE307 — System Analysis and Design, Section 02
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Introduction
 
@@ -109,3 +109,4 @@ All client-server communication occurs over HTTP(S) with JSON payloads; Cross-Or
 
 ---
 *This SRS is the third of four documentation phases for VERA, following the Project Idea & Business Analysis and PRD phases, and preceding the Technical Design Document (`20-tdd.md`).*
+

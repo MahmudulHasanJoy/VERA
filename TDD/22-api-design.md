@@ -3,7 +3,7 @@
 **Document:** 22-api-design.md
 **Phase:** Technical Design Document (TDD)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Purpose
 
@@ -175,3 +175,4 @@ This document specifies VERA's REST API contract as implemented in `backend/app/
 ## 17. Traceability Note
 
 Every endpoint above directly implements one or more functional requirements from `13-functional-requirements.md` and operates on the schema defined in `21-database-design.md`.
+

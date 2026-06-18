@@ -3,7 +3,7 @@
 **Document:** 19-system-design.md
 **Phase:** Technical Design Document (TDD)
 **Project:** VERA — Volunteer Emergency Response Alliance
-**Author:** [Your Name] — SRS & TDD module owner
+**Author:** Ridwan Hasan Khandakar — SRS & TDD module owner
 
 ## 1. Architecture Overview
 
@@ -146,3 +146,4 @@ flowchart TB
 ## 8. Traceability Note
 
 This system design realizes the functional and non-functional requirements in `13-functional-requirements.md` and `14-non-functional-requirements.md`. Its data layer is detailed in `18-erd.md` and `21-database-design.md`; its API contract is detailed in `22-api-design.md`.
+
