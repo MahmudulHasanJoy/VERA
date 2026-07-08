@@ -54,9 +54,13 @@ async function request<T>(
   if (!response.ok) {
     let message = "Request failed";
     try {
-      const data = (await response.json()) as { detail?: string | { msg: string }[] };
+      const data = (await response.json()) as {
+        detail?: string | { msg: string }[];
+        fields?: { field: string; message: string }[];
+      };
       if (typeof data.detail === "string") message = data.detail;
       else if (Array.isArray(data.detail)) message = data.detail[0]?.msg ?? message;
+      else if (data.fields?.length) message = data.fields[0].message;
     } catch {
       message = response.statusText;
     }
