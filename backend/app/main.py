@@ -7,7 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import api_router
 from app.core.config import settings
 from app.core.database import Base, engine
-from app.core.errors import register_exception_handlers
 from app.models import (  # noqa: F401
     BloodRequest,
     Certificate,
@@ -40,8 +39,6 @@ app = FastAPI(
     version="0.2.0",
     lifespan=lifespan,
 )
-
-register_exception_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,

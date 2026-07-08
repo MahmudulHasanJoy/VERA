@@ -1,35 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import AuthGuard from "@/components/AuthGuard";
-import LocationMap from "@/components/LocationMap";
 import { api } from "@/lib/api";
 import type { NearbyResult } from "@/types";
-
-const markerColors: Record<string, string> = {
-  shelter: "#2563eb",
-  resource: "#16a34a",
-  emergency: "#dc2626",
-  user: "#9333ea",
-};
 
 export default function SearchPage() {
   const [latitude, setLatitude] = useState("23.8103");
   const [longitude, setLongitude] = useState("90.4125");
   const [searchType, setSearchType] = useState("");
   const [results, setResults] = useState<NearbyResult[]>([]);
-  const [error, setError] = useState("");
 
   async function search() {
-    setError("");
-    try {
-      setResults(
-        await api.searchNearby(Number(latitude), Number(longitude), searchType || undefined),
-      );
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Search failed");
-    }
+    setResults(await api.searchNearby(Number(latitude), Number(longitude), searchType || undefined));
   }
 
   function useMyLocation() {
@@ -39,48 +23,17 @@ export default function SearchPage() {
     });
   }
 
-  const markers = useMemo(
-    () =>
-      results
-        .filter((r) => r.latitude != null && r.longitude != null)
-        .map((r) => ({
-          id: `${r.type}-${r.id}`,
-          name: r.name,
-          latitude: r.latitude as number,
-          longitude: r.longitude as number,
-          subtitle: `${r.type}${r.role ? ` · ${r.role}` : ""}${r.distance_km != null ? ` · ${r.distance_km} km` : ""}`,
-          color: markerColors[r.type] ?? "#dc2626",
-        })),
-    [results],
-  );
-
   return (
     <AuthGuard>
       <div className="mx-auto max-w-4xl px-4 py-10">
         <h1 className="text-3xl font-bold">Location-Based Search</h1>
-        <p className="mt-2 text-slate-600">
-          Find nearby volunteers, hospitals, NGOs, donors, shelters, and resources.
-        </p>
+        <p className="mt-2 text-slate-600">Find nearby volunteers, hospitals, NGOs, donors, shelters, and resources.</p>
 
         <div className="mt-6 rounded-2xl border bg-white p-6 shadow-sm">
           <div className="grid gap-3 sm:grid-cols-2">
-            <input
-              placeholder="Latitude"
-              value={latitude}
-              onChange={(e) => setLatitude(e.target.value)}
-              className="rounded-lg border px-3 py-2 text-sm"
-            />
-            <input
-              placeholder="Longitude"
-              value={longitude}
-              onChange={(e) => setLongitude(e.target.value)}
-              className="rounded-lg border px-3 py-2 text-sm"
-            />
-            <select
-              value={searchType}
-              onChange={(e) => setSearchType(e.target.value)}
-              className="rounded-lg border px-3 py-2 text-sm sm:col-span-2"
-            >
+            <input placeholder="Latitude" value={latitude} onChange={(e) => setLatitude(e.target.value)} className="rounded-lg border px-3 py-2 text-sm" />
+            <input placeholder="Longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} className="rounded-lg border px-3 py-2 text-sm" />
+            <select value={searchType} onChange={(e) => setSearchType(e.target.value)} className="rounded-lg border px-3 py-2 text-sm sm:col-span-2">
               <option value="">All types</option>
               <option value="volunteer">Volunteers</option>
               <option value="hospital">Hospitals</option>
@@ -92,21 +45,9 @@ export default function SearchPage() {
             </select>
           </div>
           <div className="mt-4 flex gap-3">
-            <button type="button" onClick={search} className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white">
-              Search
-            </button>
-            <button type="button" onClick={useMyLocation} className="rounded-lg border px-4 py-2 text-sm">
-              Use my location
-            </button>
+            <button type="button" onClick={search} className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white">Search</button>
+            <button type="button" onClick={useMyLocation} className="rounded-lg border px-4 py-2 text-sm">Use my location</button>
           </div>
-          {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-        </div>
-
-        <div className="mt-6">
-          <LocationMap
-            center={{ latitude: Number(latitude) || 23.8103, longitude: Number(longitude) || 90.4125 }}
-            markers={markers}
-          />
         </div>
 
         <div className="mt-8 space-y-3">
@@ -115,13 +56,9 @@ export default function SearchPage() {
               <div className="flex justify-between gap-2">
                 <div>
                   <h3 className="font-semibold">{r.name}</h3>
-                  <p className="text-sm text-slate-600">
-                    {r.type} {r.role ? `· ${r.role}` : ""} · {r.location}
-                  </p>
+                  <p className="text-sm text-slate-600">{r.type} {r.role ? `· ${r.role}` : ""} · {r.location}</p>
                 </div>
-                {r.distance_km != null && (
-                  <span className="text-sm font-medium text-red-600">{r.distance_km} km</span>
-                )}
+                {r.distance_km != null && <span className="text-sm font-medium text-red-600">{r.distance_km} km</span>}
               </div>
             </div>
           ))}

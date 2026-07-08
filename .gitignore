@@ -14,8 +14,6 @@ backend/.env
 backend/vera.db
 backend/.venv/
 backend/venv/
-backend/.pytest_cache/
-backend/.mypy_cache/
 
 # OS / editor
 .DS_Store
