@@ -134,7 +134,8 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     emergency_requests: Mapped[list["EmergencyRequest"]] = relationship(
-        back_populates="requester"
+        back_populates="requester",
+        foreign_keys="[EmergencyRequest.requester_id]",
     )
     blood_requests: Mapped[list["BloodRequest"]] = relationship(back_populates="requester")
 
