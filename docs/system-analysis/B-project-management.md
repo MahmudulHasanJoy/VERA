@@ -105,29 +105,38 @@ graph TD
 | DevOps Engineer (DO) | 2,800 |
 | Technical Writer (TW) | 1,800 |
 
+**Responsible parties (single accountable owner per task):**
+
+| Code | Team member | Primary roles played |
+|------|-------------|----------------------|
+| **MH** | Md. Mahmudul Hasan (2311960) | PM, System Architect, Backend, DevOps |
+| **RHK** | Ridwan Hasan Khandakar (2310604) | Business Analyst, UI/UX, Full-stack, Frontend |
+
+Following the WBS guideline that **each task has a single responsible person**, every activity below has exactly one accountable owner (the *Responsible Party*), even where a role/resource type is shared.
+
 **Activity table:**
 
-| ID | Activity | Duration (days) | Predecessor(s) | Resource | Cost (৳) |
-|----|----------|-----------------|----------------|----------|----------|
-| A1 | Project kickoff & planning | 3 | — | PM | 9,000 |
-| A2 | Requirement gathering | 7 | A1 | BA | 17,500 |
-| A3 | Requirement analysis & SRS | 5 | A2 | BA | 12,500 |
-| A4 | System architecture & database design | 6 | A3 | SA | 18,000 |
-| A5 | UI/UX design | 5 | A3 | UX | 11,000 |
-| A6 | Environment & project setup | 2 | A4 | BE | 5,000 |
-| A7 | Auth & RBAC module | 5 | A6 | BE | 12,500 |
-| A8 | Emergency & incident module | 6 | A7 | FS | 16,800 |
-| A9 | Blood request & donor-matching module | 6 | A7 | BE | 15,000 |
-| A10 | NGO resources, coordination & donations | 7 | A8 | FS | 19,600 |
-| A11 | Shelters, coverage, volunteers & certificates | 7 | A9, A10 | FS | 19,600 |
-| A12 | Search, notifications, dashboard & admin reports | 6 | A11 | FS | 16,800 |
-| A13 | Frontend integration | 5 | A5, A12 | FE | 12,500 |
-| A14 | Functional & integration testing | 6 | A13 | QA | 12,000 |
-| A15 | Security review & fixes | 3 | A14 | BE | 7,500 |
-| A16 | Dockerization & OCI deployment | 4 | A15 | DO | 11,200 |
-| A17 | Documentation & training | 4 | A16 | TW | 7,200 |
-| A18 | Project closure & handover | 2 | A17 | PM | 6,000 |
-| | **Total** | **78 (critical path)** | | | **229,700** |
+| ID | Activity | Duration (days) | Predecessor(s) | Resource | Responsible Party | Cost (৳) |
+|----|----------|-----------------|----------------|----------|-------------------|----------|
+| A1 | Project kickoff & planning | 3 | — | PM | MH | 9,000 |
+| A2 | Requirement gathering | 7 | A1 | BA | RHK | 17,500 |
+| A3 | Requirement analysis & SRS | 5 | A2 | BA | RHK | 12,500 |
+| A4 | System architecture & database design | 6 | A3 | SA | MH | 18,000 |
+| A5 | UI/UX design | 5 | A3 | UX | RHK | 11,000 |
+| A6 | Environment & project setup | 2 | A4 | BE | MH | 5,000 |
+| A7 | Auth & RBAC module | 5 | A6 | BE | MH | 12,500 |
+| A8 | Emergency & incident module | 6 | A7 | FS | RHK | 16,800 |
+| A9 | Blood request & donor-matching module | 6 | A7 | BE | MH | 15,000 |
+| A10 | NGO resources, coordination & donations | 7 | A8 | FS | RHK | 19,600 |
+| A11 | Shelters, coverage, volunteers & certificates | 7 | A9, A10 | FS | MH | 19,600 |
+| A12 | Search, notifications, dashboard & admin reports | 6 | A11 | FS | RHK | 16,800 |
+| A13 | Frontend integration | 5 | A5, A12 | FE | RHK | 12,500 |
+| A14 | Functional & integration testing | 6 | A13 | QA | MH | 12,000 |
+| A15 | Security review & fixes | 3 | A14 | BE | MH | 7,500 |
+| A16 | Dockerization & OCI deployment | 4 | A15 | DO | MH | 11,200 |
+| A17 | Documentation & training | 4 | A16 | TW | RHK | 7,200 |
+| A18 | Project closure & handover | 2 | A17 | PM | MH | 6,000 |
+| | **Total** | **78 (critical path)** | | | | **229,700** |
 
 > **Total labour cost = ৳ 229,700.** Non-labour costs (infrastructure, tools, contingency) are added in the Feasibility Analysis (Section C).
 

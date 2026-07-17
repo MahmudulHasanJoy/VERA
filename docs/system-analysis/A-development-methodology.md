@@ -68,6 +68,21 @@ VERA is an emergency-response coordination platform with **many independent modu
 
 ---
 
+### A1.3.1 Core Agile Practices Adopted (XP influence)
+
+Beyond Scrum ceremonies, VERA explicitly adopts the **four core Agile/Extreme Programming (XP) practices** to raise quality and feedback speed:
+
+| Core Practice | How VERA applies it |
+|---------------|---------------------|
+| **Short releases** | Each 2-week sprint ends with a deployable increment pushed to a test environment, so stakeholders see working software frequently. |
+| **40-hour work week** | The team maintains a sustainable pace to avoid burnout and reduce defects — no crunch-driven "hero" coding, which is critical for a life-safety platform. |
+| **Onsite customer** | An **NGO representative acts as the onsite customer/proxy Product Owner**, available during sprint reviews (and on-call during development) to clarify emergency-workflow requirements and give rapid feedback on priorities. |
+| **Pair programming** | For **high-risk, high-value modules** (authentication/RBAC and blood donor-matching), the two developers pair-program to catch defects early, share domain knowledge, and improve code quality. Lower-risk modules are developed solo with peer code review. |
+
+These practices directly address VERA's need for **fast feedback** (onsite NGO customer), **reliability** (pair programming on critical modules), and **frequent, low-risk delivery** (short releases at a sustainable pace).
+
+---
+
 ### A1.4 Mapping Sprints to VERA Modules
 
 | Sprint | Focus | Requirements delivered |

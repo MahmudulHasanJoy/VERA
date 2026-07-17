@@ -85,7 +85,21 @@ Benefits combine **tangible (monetised)** and **intangible (social)** value. For
 
 ## C3. Net Present Value (NPV) Table
 
-**Inputs:** Initial investment = ৳ 346,170 · Operating cost = ৳ 130,000/year · Discount rate = 10%.
+### C3.0 Discount Rate Justification
+
+Course examples typically use a **12%** discount rate as a generic default. VERA uses **10%**, justified by its specific context:
+
+| Factor | Effect on rate |
+|--------|----------------|
+| **Non-profit / social platform** | A humanitarian project carries a lower required rate of return than a commercial venture; social benefit partly substitutes for financial return. |
+| **Grant & CSR funding** | Part of the capital comes from grants/sponsorships (lower cost of capital than commercial loans), pulling the effective rate down. |
+| **Low-cost cloud infrastructure** | OCI free/low-cost tier reduces capital risk, supporting a slightly lower discount rate. |
+
+A **sensitivity check** confirms the decision is robust: even at the course-standard **12%**, NPV = **৳ 553,336** (PV of inflows ৳ 899,506 − investment ৳ 346,170), still clearly positive. The feasibility verdict therefore does not depend on the choice of 10% vs 12%.
+
+**Inputs:** Initial investment = ৳ 346,170 · Operating cost = ৳ 130,000/year · Discount rate = 10% (12% used for sensitivity check).
+
+**Discount factor formula:** $DF_n = \dfrac{1}{(1+i)^n}$ where *i* = discount rate and *n* = year.
 
 **Net cash flow = Annual benefit − Annual operating cost.**
 

@@ -49,24 +49,74 @@ Requirement discovery (elicitation) is the process of finding, understanding, an
 | **Sample questions** | How do you currently receive/handle emergency requests? What slows you down? How do you verify volunteers? How do you track donations? |
 | **Output** | Interview notes → themed requirements ([`05-interviews.md`](../business-analysis/05-interviews.md)) |
 
+#### Interview Question Structures (Pyramid / Funnel / Diamond)
+
+Following the three interview shapes, VERA matches the **structure to the stakeholder** rather than using one shape for everyone:
+
+| Structure | Shape | Used for | Why |
+|-----------|-------|----------|-----|
+| **Funnel** | General → Specific (open then closed) | **Citizens, emergency victims, volunteers** | Starts non-threateningly with broad, open questions ("Tell me about a time you needed urgent help") to put emotional or non-technical respondents at ease, then narrows to specifics. |
+| **Pyramid** | Specific → General (closed then open) | **Hospital / blood-bank staff, admins** | Begins with concrete, factual questions (units of blood, current tools) to engage detail-oriented professionals, then broadens to opinions and improvement ideas. |
+| **Diamond** | Specific → General → Specific | **NGO coordinators** | Opens with specific facts, expands to broad discussion of coordination challenges, then closes with specific feature priorities — ideal for a rich, multi-topic stakeholder. |
+
 ### D2.2 Survey Plan
 
 | Attribute | Detail |
 |-----------|--------|
 | **Target participants** | General citizens, students, blood donors, volunteers |
-| **Sample size** | 100+ respondents |
+| **Sample size** | Statistically derived (see below) — target **≈ 385**, minimum pilot 100 |
 | **Channel** | Online form shared via social media and campus groups |
 | **Question types** | Multiple choice + Likert scale + short answer |
 | **Sample questions** | How do you currently request blood? Would you use a verified volunteer platform? Which features matter most? |
 | **Output** | Quantitative charts → prioritised needs ([`06-surveys.md`](../business-analysis/06-surveys.md)) |
 
-### D2.3 Observation Plan
+#### Sample Size Determination (Formula)
+
+Rather than picking an arbitrary count, the survey sample size is derived using the standard **sample-size formula** for estimating a proportion:
+
+$$
+n_0 = \frac{z^2 \cdot p \cdot (1-p)}{e^2}
+$$
+
+| Symbol | Meaning | Value used |
+|--------|---------|-----------|
+| $z$ | z-score for confidence level | 1.96 (95% confidence) |
+| $p$ | estimated proportion (max variability) | 0.5 |
+| $e$ | acceptable margin of error | 0.05 (±5%) |
+
+$$
+n_0 = \frac{(1.96)^2 \cdot 0.5 \cdot 0.5}{(0.05)^2} = \frac{0.9604}{0.0025} \approx \mathbf{385}
+$$
+
+**Finite population correction** (if the sampling frame *N* is known — e.g. a target community of registered volunteers):
+
+$$
+n = \frac{n_0}{1 + \dfrac{n_0 - 1}{N}}
+$$
+
+**Interpretation for VERA:**
+- A statistically valid sample at 95% confidence, ±5% margin ≈ **385 respondents**.
+- The earlier **100+** figure is treated as an initial **pilot** (≈ ±10% margin at 95%); the plan scales toward **385** for full statistical validity, or applies the finite-population correction once a specific sampling frame (e.g. a campus or NGO volunteer list) is fixed.
+
+### D2.3 Observation Plan (with STROBE)
 
 | Attribute | Detail |
 |-----------|--------|
-| **What** | Emergency/blood posts in public Facebook groups; volunteer WhatsApp coordination |
+| **What** | Emergency/blood posts in public Facebook groups; volunteer WhatsApp coordination; NGO field/office operations |
 | **Focus** | Structure of requests, duplication, response time, status updates |
 | **Output** | Behaviour patterns → structural requirements (dedup, status workflow, controlled contact) |
+
+**STROBE technique** — *STRuctured OBservation of the Environment*. When observing NGO offices and coordinators, we examine physical/environmental cues to **validate (or contradict) what interviewees claim**. This guards against the common gap between what stakeholders *say* they do and what they *actually* do.
+
+| STROBE element | What we look for at VERA stakeholders | Requirement insight |
+|----------------|----------------------------------------|---------------------|
+| **Office location & layout** | Is the NGO desk central or isolated? Who sits near the coordinator? | Reveals real coordination flow and who must be notified. |
+| **Desk / equipment placement** | Shared whiteboards, printed contact lists, pinned maps | Confirms need for a digital shared board, coverage map, contact registry. |
+| **Props & technology in use** | Are they using phones/registers/Excel instead of a system? | Confirms the manual, unstructured process VERA replaces. |
+| **External information sources** | Sticky notes, wall posters of blood contacts | Shows reliance on ad-hoc records → need for structured donor/resource data. |
+| **Body language / behaviour during a request** | Rushing between calls, re-entering the same data | Confirms time pressure → drives the ≤5-step, fast-entry usability requirement. |
+
+STROBE findings are cross-checked against interview claims; any contradiction is flagged and re-confirmed before a requirement is accepted.
 
 ### D2.4 Document Analysis Plan
 
