@@ -1,130 +1,120 @@
 # A — Software Development Methodology
 
-**VERA: Volunteer Emergency Response Alliance**
+**Title:** Volunteer Emergency Response Alliance (VERA)
 
-## Document Information
+A platform that connects people in need with volunteers, donors, NGOs, hospitals, emergency responders, and relief organizations through a centralized emergency assistance network.
 
-| Field | Detail |
-|-------|--------|
-| **Course** | CSE307 — System Analysis and Design |
-| **Phase** | 5 — System Analysis and Development Issues |
-| **Section** | A — Software Development Methodology |
-| **Team** | Md. Mahmudul Hasan (2311960), Ridwan Hasan Khandakar (2310604) |
+## Group Members
 
----
+| ID | Name | Contribution |
+|----|------|--------------|
+| 2311960 | Md. Mahmudul Hasan | 100% |
+| 2310604 | Ridwan Hasan Khandakar | 100% |
+| 2022752 | Kazi Fatema Tuj Johra | 100% |
+| 2312226 | Fouzia Abida | 100% |
+| 2310690 | Syed Mehedi Hussain | 100% |
+| 2210892 | Sowhardra Paul | 100% |
 
-## A1. Selected Methodology and Justification
-
-### A1.1 Selected Methodology: **Agile — Scrum (with an Iterative/Incremental delivery model)**
-
-For the VERA project we selected the **Agile Scrum** software development methodology, delivering the product in short, incremental sprints that each produce a working slice of the system.
+**Course:** CSE307 — System Analysis and Design · **Task 5(A):** Software Development Methodology
 
 ---
 
-### A1.2 Why Agile Scrum Fits VERA
+## A1. Selecting a Software Development Methodology (with Justification)
 
-VERA is an emergency-response coordination platform with **many independent modules** (authentication, emergencies, blood matching, NGO resources, donations, shelters, coverage monitoring, notifications, admin reports). Requirements were **discovered progressively** through interviews, surveys, and observation of real social-media emergency behaviour — so the requirements were **not fully fixed** at the start. This makes a plan-driven model (like pure Waterfall) unsuitable and an adaptive model (Agile) the natural fit.
+### A1.1 Our Choice
 
-| Project characteristic | Why it favours Agile Scrum |
-|------------------------|----------------------------|
-| **Evolving requirements** | Requirements were refined after interviews/surveys; Agile welcomes change even late in development. |
-| **Modular scope** | Each module (emergencies, blood, donations…) maps cleanly to a sprint backlog and can ship independently. |
-| **Small team (2 developers)** | Scrum works well for small, self-organising teams with lightweight ceremonies. |
-| **Need for early, working MVP** | Incremental delivery produced a demonstrable MVP early instead of waiting for a "big bang" release. |
-| **Frequent stakeholder feedback** | Citizens, NGOs, and donors could review each increment and steer priorities. |
-| **Risk reduction** | High-value, high-risk modules (auth, blood matching) were built first, surfacing integration risk early. |
-| **Fixed academic timeline** | Timeboxed sprints keep progress measurable against course phase deadlines. |
+For the VERA project, we selected the **Agile methodology using the Scrum framework** (Lecture 6).
 
----
+In simple words, Agile means we build the software in small pieces, show a working piece to users early, take their feedback, and keep improving. We do not try to plan everything perfectly at the start and build it all at once.
 
-### A1.3 How Scrum Is Applied to VERA
+### A1.2 Why Agile Is Suitable for VERA (Justification)
 
-**Roles**
+We picked Agile because it matches the nature of our project. The reasons are:
 
-| Scrum role | VERA mapping |
-|------------|--------------|
-| Product Owner | Team lead — owns and prioritises the product backlog with stakeholder input |
-| Scrum Master | Rotating team member — removes blockers, facilitates ceremonies |
-| Development Team | Both developers — design, build, and test increments |
+1. **Our requirements kept changing.** When we started, we did not know all the features. After doing interviews and surveys, we discovered new needs (for example, disaster coverage monitoring). One of the basic principles of Agile is to *"embrace change, even if introduced late in development"* (Lecture 6). A fixed method like Waterfall could not handle this.
 
-**Sprint cadence:** 2-week sprints across the project timeline.
+2. **VERA has many modules.** We have separate parts like login, emergencies, blood requests, donations, shelters, and reports. Agile lets us *"deliver functioning software incrementally and frequently"* — we build one module at a time and show it working.
 
-**Ceremonies**
+3. **We wanted feedback early.** Agile *"encourages customers and analysts to work together daily."* An NGO can look at each part and tell us if it is correct before we build the next part.
 
-| Ceremony | Purpose in VERA |
-|----------|-----------------|
-| Sprint Planning | Select backlog items (e.g. "Blood request + donor matching") for the sprint |
-| Daily Stand-up | Short sync on progress and blockers |
-| Sprint Review | Demo the working increment (deployed to a test environment) |
-| Sprint Retrospective | Improve process (e.g. add automated tests after a regression) |
+4. **Our team is small and self-organizing.** Scrum works well for small teams that plan their own work, which fits our six-member group.
 
-**Artifacts**
+5. **It lowers risk.** By building and testing small pieces, we find problems early instead of at the end. This is very important for an emergency platform where mistakes can be serious.
 
-| Artifact | VERA example |
-|----------|--------------|
-| Product Backlog | Full list of Functional Requirements FR-01 → FR-25 |
-| Sprint Backlog | Subset chosen per sprint (e.g. FR-08, FR-09 for the Emergency sprint) |
-| Increment | Deployable software (e.g. FastAPI endpoints + Next.js pages for emergencies) |
+### A1.3 Agile Values We Followed (Lecture 6)
 
----
+Agile is built on four values, and we tried to keep all of them:
 
-### A1.3.1 Core Agile Practices Adopted (XP influence)
+| Value | How we applied it in VERA |
+|-------|----------------------------|
+| **Communication** | The team talked daily and kept in touch with the NGO representative. |
+| **Simplicity** | We built the simplest thing that works first, then improved it. |
+| **Feedback** | We showed each finished module to users and took their comments. |
+| **Courage** | We were willing to change or remove features when feedback told us to. |
 
-Beyond Scrum ceremonies, VERA explicitly adopts the **four core Agile/Extreme Programming (XP) practices** to raise quality and feedback speed:
+### A1.4 The Four Core Practices of Agile (Lecture 6)
 
-| Core Practice | How VERA applies it |
-|---------------|---------------------|
-| **Short releases** | Each 2-week sprint ends with a deployable increment pushed to a test environment, so stakeholders see working software frequently. |
-| **40-hour work week** | The team maintains a sustainable pace to avoid burnout and reduce defects — no crunch-driven "hero" coding, which is critical for a life-safety platform. |
-| **Onsite customer** | An **NGO representative acts as the onsite customer/proxy Product Owner**, available during sprint reviews (and on-call during development) to clarify emergency-workflow requirements and give rapid feedback on priorities. |
-| **Pair programming** | For **high-risk, high-value modules** (authentication/RBAC and blood donor-matching), the two developers pair-program to catch defects early, share domain knowledge, and improve code quality. Lower-risk modules are developed solo with peer code review. |
+Lecture 6 lists four core practices. We adopted all four:
 
-These practices directly address VERA's need for **fast feedback** (onsite NGO customer), **reliability** (pair programming on critical modules), and **frequent, low-risk delivery** (short releases at a sustainable pace).
+| Core Practice | How VERA used it |
+|---------------|------------------|
+| **Short releases** | Every 2 weeks we released a small working version, so the system could grow step by step. |
+| **40-hour work week** | We worked at a steady, healthy pace instead of rushing at the end. This keeps quality high and reduces mistakes. |
+| **Onsite customer** | An **NGO representative** acted as our onsite customer, giving quick answers and feedback about real emergency needs. |
+| **Pair programming** | For the hard and risky modules (login/security and blood donor matching), two members coded together to catch mistakes early and improve quality. |
 
----
+### A1.5 The Scrum Framework We Used (Lecture 6)
 
-### A1.4 Mapping Sprints to VERA Modules
+Scrum is the Agile approach we followed. Its main parts are:
 
-| Sprint | Focus | Requirements delivered |
-|--------|-------|------------------------|
-| Sprint 1 | Foundation & Auth | FR-01 – FR-04 (register, login, profile, RBAC) |
-| Sprint 2 | Emergencies & Incidents | FR-08, FR-09, FR-18 |
-| Sprint 3 | Blood requests & donor matching | FR-07, FR-10 – FR-12 |
-| Sprint 4 | NGO resources, coordination, donations | FR-13 – FR-16 |
-| Sprint 5 | Volunteers, certificates, shelters, coverage | FR-05, FR-06, FR-17, FR-19 – FR-21 |
-| Sprint 6 | Search, notifications, dashboards, admin reports | FR-22 – FR-25 |
-| Sprint 7 | Hardening, testing, Dockerization, deployment | NFRs, migrations, OCI deployment |
+**Roles:**
 
----
+| Role | Who / What it means |
+|------|---------------------|
+| **Product Owner** | Decides what features are most important (kept the feature list ordered by priority). |
+| **Scrum Master** | Helps the team, removes problems, and runs the meetings. |
+| **Development Team** | The members who design, code, and test the software. |
 
-### A1.5 Alternatives Considered and Rejected
+**Scrum artifacts and events (in simple terms):**
 
-| Methodology | Why it was **not** selected for VERA |
-|-------------|--------------------------------------|
-| **Waterfall** | Requires all requirements fixed up front; VERA's requirements evolved through discovery. No working software until late — too risky for an emergency platform demo. |
-| **V-Model** | Strong testing focus but still sequential and rigid; poor fit for changing scope. |
-| **Big Bang** | No planning discipline; unacceptable for a multi-module system with deadlines. |
-| **Spiral** | Excellent for risk but heavyweight, documentation-intensive, and oversized for a 2-person student team. |
-| **Kanban (pure)** | Good for continuous flow but lacks the timeboxed cadence needed to align with fixed academic phase deadlines. Scrum's sprints map better to milestones. |
+| Term | Meaning in VERA |
+|------|-----------------|
+| **Product Backlog** | The full list of all features we want (our requirements FR-01 to FR-25). |
+| **Sprint Backlog** | The small set of features we chose to build in one sprint. |
+| **Sprint** | A short 2-week period in which we build the chosen features. |
+| **Daily Scrum** | A short daily meeting to say what we did, what we will do, and any problem. |
+| **Demo** | At the end of a sprint we show the working software to users. |
 
----
+### A1.6 How We Divided the Work into Sprints
 
-### A1.6 Benefits Realised
+| Sprint | What we built |
+|--------|---------------|
+| Sprint 1 | Registration, login, roles (FR-01 to FR-04) |
+| Sprint 2 | Emergency and incident reporting (FR-08, FR-09, FR-18) |
+| Sprint 3 | Blood requests and donor matching (FR-07, FR-10 to FR-12) |
+| Sprint 4 | NGO resources, coordination, donations (FR-13 to FR-16) |
+| Sprint 5 | Shelters, coverage, volunteers, certificates (FR-05, FR-06, FR-17, FR-19 to FR-21) |
+| Sprint 6 | Search, notifications, dashboard, admin reports (FR-22 to FR-25) |
+| Sprint 7 | Testing, security fixes, deployment |
 
-- A **working MVP** was demonstrable early and improved each sprint.
-- Requirement changes (e.g. adding disaster **coverage monitoring**) were absorbed without rework of unrelated modules.
-- Parallel, modular development suited the two-person team.
-- Continuous testing and retrospectives improved quality (unit tests, regression pass, security review).
+### A1.7 We Also Used Prototyping (Lecture 6)
+
+Along with Scrum, we used **prototyping** to gather requirements. We mostly used the **selected-features prototype** — an early version with some (not all) features — so users could see the screens and tell us what to change before we finished the real system.
+
+### A1.8 Why We Did Not Choose Other Methods
+
+| Method | Why we did not choose it |
+|--------|--------------------------|
+| **Waterfall** | It needs all requirements fixed at the beginning. Our requirements kept changing, so this did not fit. Also, no working software is seen until the very end. |
+| **V-Model** | Good for testing, but still fixed and step-by-step like Waterfall. |
+| **Spiral** | Good for risk, but too heavy and needs too much documentation for a student team. |
 
 ---
 
-## Phase Navigation
+## Short Answer (Summary)
 
-| | Document |
-|---|----------|
-| **Current** | A — Software Development Methodology |
-| **Next** | [B — Project Management](./B-project-management.md) |
+We selected the **Agile methodology (Scrum framework)** for VERA because our requirements changed over time, our system has many modules, and we needed early feedback from users and NGOs. We followed the four Agile values, the four core practices (short releases, 40-hour week, onsite customer, pair programming), and the Scrum process (product backlog, sprint backlog, sprints, daily scrum, and demos), and we used prototyping to confirm requirements.
 
 ---
 
-*Phase 5 — System Analysis and Development Issues | VERA*
+*CSE307 — System Analysis and Design | Task 5(A) | VERA*

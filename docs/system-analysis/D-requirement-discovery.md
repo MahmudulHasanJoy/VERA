@@ -1,214 +1,175 @@
 # D — Requirement Discovery
 
-**VERA: Volunteer Emergency Response Alliance**
+**Title:** Volunteer Emergency Response Alliance (VERA)
 
-## Document Information
+## Group Members
 
-| Field | Detail |
-|-------|--------|
-| **Course** | CSE307 — System Analysis and Design |
-| **Phase** | 5 — System Analysis and Development Issues |
-| **Section** | D — Requirement Discovery |
+| ID | Name | Contribution |
+|----|------|--------------|
+| 2311960 | Md. Mahmudul Hasan | 100% |
+| 2310604 | Ridwan Hasan Khandakar | 100% |
+| 2022752 | Kazi Fatema Tuj Johra | 100% |
+| 2312226 | Fouzia Abida | 100% |
+| 2310690 | Syed Mehedi Hussain | 100% |
+| 2210892 | Sowhardra Paul | 100% |
+
+**Course:** CSE307 — System Analysis and Design · **Task 5(D):** Requirement Discovery
 
 ---
 
-## D1. Suitable Requirement Discovery Methods (with Justification)
+## What Is Requirement Discovery? (Lecture 4)
 
-Requirement discovery (elicitation) is the process of finding, understanding, and documenting what stakeholders need from the system. For VERA we selected a **combination of four complementary methods**, because no single technique captures the needs of such a diverse stakeholder base (citizens, volunteers, donors, NGOs, hospitals, admins).
+Requirement discovery (also called **fact-finding** or **information gathering**) is how we find out what the users really need from the system. Lecture 4 divides the methods into **interactive methods** (we talk to people directly) and Lecture 5 adds **unobtrusive methods** (we quietly study documents and behaviour).
 
-### D1.1 Selected Methods
+Lecture 4 also reminds us of two important types of requirements:
+- **Functional requirement** — a function or feature the system *must do* (e.g. "register a user").
+- **Non-functional requirement** — a quality or attribute of the system (e.g. "must be secure", "must be fast").
 
-| # | Method | Why it suits VERA (Justification) |
-|---|--------|-----------------------------------|
-| 1 | **Interviews** | Best for deep, qualitative insight from key stakeholders (NGO coordinators, hospital staff, admins) who understand real emergency workflows and pain points. Allows follow-up questions. |
-| 2 | **Questionnaires / Surveys** | Reach a **large number of citizens, volunteers, and donors** cheaply and quickly to quantify needs (e.g. how they currently request blood). Ideal for a wide, geographically spread audience. |
-| 3 | **Observation** | Study **real behaviour** in existing channels (Facebook groups, WhatsApp blood chains) to discover unspoken needs — e.g. duplicated posts, no status tracking — that users may not articulate. |
-| 4 | **Document Analysis / Benchmarking** | Review disaster reports, NGO relief records, and similar platforms to extract requirements and avoid reinventing solved problems. |
+---
 
-**Primary method:** Interviews + Surveys (mixed-method), supported by Observation and Document Analysis. This triangulation lets qualitative depth (interviews) validate quantitative breadth (surveys).
+## D1. Suitable Methods (with Justification)
 
-### D1.2 Why Not Other Methods (Alone)
+VERA has many different users (citizens, volunteers, donors, NGOs, hospitals, admins), so one method is not enough. We chose **four methods together** (a mixed-method approach). Lecture 5 says unobtrusive methods are "insufficient when used alone", so we combine them with interactive methods.
 
-| Method | Limitation for VERA |
-|--------|---------------------|
-| Prototyping only | Useful later for UI validation, but doesn't discover the full breadth of stakeholder needs up front. |
-| Brainstorming only | Generates ideas but not grounded in real user data. |
-| JAD workshops only | Hard to gather geographically dispersed citizens and NGOs in one room. |
+| Method | Type (Lecture) | Why it is suitable for VERA |
+|--------|----------------|------------------------------|
+| **Interviews** | Interactive (Lec 4) | Best for deep answers from important people like NGO staff and hospital staff. We can ask follow-up questions. |
+| **Questionnaires / Surveys** | Interactive (Lec 4) | Best to reach **many** citizens, students, and donors quickly and cheaply. Good when people are spread out in many places. |
+| **Observation** | Unobtrusive (Lec 5) | Lets us see what people *actually do* (for example, how blood requests are posted on Facebook), not just what they say. |
+| **Document Analysis** | Unobtrusive (Lec 5) | We study old reports, forms, and similar systems to find facts and needs. |
+
+**Main methods:** Interviews + Questionnaires, supported by Observation and Document Analysis.
 
 ---
 
 ## D2. Plan for the Selected Methods
 
-### D2.1 Interview Plan
+### D2.1 Interview Plan (Lecture 4)
 
-| Attribute | Detail |
-|-----------|--------|
-| **Target participants** | NGO coordinators, hospital/blood-bank staff, experienced volunteers, potential admins |
-| **Sample size** | 6–10 participants |
-| **Format** | Semi-structured, 30–45 min, in-person or online |
-| **Sample questions** | How do you currently receive/handle emergency requests? What slows you down? How do you verify volunteers? How do you track donations? |
-| **Output** | Interview notes → themed requirements ([`05-interviews.md`](../business-analysis/05-interviews.md)) |
+| Item | Plan |
+|------|------|
+| Who we interview | NGO coordinators, hospital / blood-bank staff, senior volunteers, possible admins |
+| How many | 6 to 10 people |
+| Length | 30 to 45 minutes each |
+| Question types | Both **open-ended** (for detail) and **closed** (for quick facts) |
+| Example questions | "How do you handle an emergency request now?", "What slows you down?", "How do you check if a volunteer is real?" |
 
-#### Interview Question Structures (Pyramid / Funnel / Diamond)
+**Interview question structure (Lecture 4).** Lecture 4 gives three shapes for arranging questions. We choose the shape based on the person:
 
-Following the three interview shapes, VERA matches the **structure to the stakeholder** rather than using one shape for everyone:
+| Structure | How it works | We use it for | Why |
+|-----------|--------------|---------------|-----|
+| **Funnel** | Start general (open), then go specific (closed) | Citizens, victims, volunteers | It is a soft, non-threatening start. Good when the person feels emotional about the topic. |
+| **Pyramid** | Start specific (closed), then go general (open) | Hospital staff, admins | Good to warm up detail-minded people with exact facts first, then open up. |
+| **Diamond** | Specific → general → specific | NGO coordinators | Combines both shapes for a long, detailed interview. |
 
-| Structure | Shape | Used for | Why |
-|-----------|-------|----------|-----|
-| **Funnel** | General → Specific (open then closed) | **Citizens, emergency victims, volunteers** | Starts non-threateningly with broad, open questions ("Tell me about a time you needed urgent help") to put emotional or non-technical respondents at ease, then narrows to specifics. |
-| **Pyramid** | Specific → General (closed then open) | **Hospital / blood-bank staff, admins** | Begins with concrete, factual questions (units of blood, current tools) to engage detail-oriented professionals, then broadens to opinions and improvement ideas. |
-| **Diamond** | Specific → General → Specific | **NGO coordinators** | Opens with specific facts, expands to broad discussion of coordination challenges, then closes with specific feature priorities — ideal for a rich, multi-topic stakeholder. |
+### D2.2 Questionnaire (Survey) Plan (Lectures 4 & 5)
 
-### D2.2 Survey Plan
+| Item | Plan |
+|------|------|
+| Who answers | Citizens, students, blood donors, volunteers |
+| How we send it | Online form shared on social media and campus groups |
+| Question types | Closed (multiple choice), **interval scale** (1–5 rating), and a few open-ended |
+| Language | Simple, short, clear, and free of bias (Lecture 4 rules) |
 
-| Attribute | Detail |
-|-----------|--------|
-| **Target participants** | General citizens, students, blood donors, volunteers |
-| **Sample size** | Statistically derived (see below) — target **≈ 385**, minimum pilot 100 |
-| **Channel** | Online form shared via social media and campus groups |
-| **Question types** | Multiple choice + Likert scale + short answer |
-| **Sample questions** | How do you currently request blood? Would you use a verified volunteer platform? Which features matter most? |
-| **Output** | Quantitative charts → prioritised needs ([`06-surveys.md`](../business-analysis/06-surveys.md)) |
+**Sample size (Lecture 5).** Lecture 5 says we should not survey everyone (too costly). Instead we pick a sample. To find how many people to survey, we use the sample-size idea from Lecture 5:
 
-#### Sample Size Determination (Formula)
+- Choose a **confidence level** → for 95% confidence, the value **z = 1.96**.
+- Choose the **interval estimate** (how much error we accept) → i = ±0.05.
+- Assume the worst-case proportion p = 0.5.
 
-Rather than picking an arbitrary count, the survey sample size is derived using the standard **sample-size formula** for estimating a proportion:
+A common way to get the sample size for a proportion is:
 
-$$
-n_0 = \frac{z^2 \cdot p \cdot (1-p)}{e^2}
-$$
+**n = z² × p × (1 − p) ÷ i² = (1.96)² × 0.5 × 0.5 ÷ (0.05)² ≈ 385**
 
-| Symbol | Meaning | Value used |
-|--------|---------|-----------|
-| $z$ | z-score for confidence level | 1.96 (95% confidence) |
-| $p$ | estimated proportion (max variability) | 0.5 |
-| $e$ | acceptable margin of error | 0.05 (±5%) |
+So a good statistical sample is **about 385 people**. If we cannot reach that many, we start with a smaller **pilot sample of 100** (this gives a bigger error, about ±10%) and grow towards 385.
 
-$$
-n_0 = \frac{(1.96)^2 \cdot 0.5 \cdot 0.5}{(0.05)^2} = \frac{0.9604}{0.0025} \approx \mathbf{385}
-$$
+### D2.3 Observation Plan with STROBE (Lecture 5)
 
-**Finite population correction** (if the sampling frame *N* is known — e.g. a target community of registered volunteers):
+We observe how people currently work — for example, blood/emergency posts on Facebook and how volunteers coordinate on WhatsApp.
 
-$$
-n = \frac{n_0}{1 + \dfrac{n_0 - 1}{N}}
-$$
+Lecture 5 also teaches **STROBE** (STRuctured OBservation of the Environment). This means we look at the decision-maker's surroundings to **confirm or reject** what they told us in interviews. When we visit an NGO office we check:
 
-**Interpretation for VERA:**
-- A statistically valid sample at 95% confidence, ±5% margin ≈ **385 respondents**.
-- The earlier **100+** figure is treated as an initial **pilot** (≈ ±10% margin at 95%); the plan scales toward **385** for full statistical validity, or applies the finite-population correction once a specific sampling frame (e.g. a campus or NGO volunteer list) is fixed.
+| STROBE element (Lecture 5) | What we look at | What it tells us |
+|----------------------------|-----------------|------------------|
+| Office location | Is the coordinator central or far away? | Who really controls coordination |
+| Desk placement | Does it help people talk? | How information flows |
+| Stationary equipment | Registers, printed contact lists, whiteboards | They still use manual tools → VERA can replace them |
+| Props | Do they use a PC / phone / tablet? | How ready they are for a digital system |
+| External information sources | Wall posters, sticky notes of blood contacts | Need for a proper digital contact list |
 
-### D2.3 Observation Plan (with STROBE)
+If what we see is different from what they said, we ask again before writing the requirement.
 
-| Attribute | Detail |
-|-----------|--------|
-| **What** | Emergency/blood posts in public Facebook groups; volunteer WhatsApp coordination; NGO field/office operations |
-| **Focus** | Structure of requests, duplication, response time, status updates |
-| **Output** | Behaviour patterns → structural requirements (dedup, status workflow, controlled contact) |
+### D2.4 Document Analysis Plan (Lecture 5)
 
-**STROBE technique** — *STRuctured OBservation of the Environment*. When observing NGO offices and coordinators, we examine physical/environmental cues to **validate (or contradict) what interviewees claim**. This guards against the common gap between what stakeholders *say* they do and what they *actually* do.
-
-| STROBE element | What we look for at VERA stakeholders | Requirement insight |
-|----------------|----------------------------------------|---------------------|
-| **Office location & layout** | Is the NGO desk central or isolated? Who sits near the coordinator? | Reveals real coordination flow and who must be notified. |
-| **Desk / equipment placement** | Shared whiteboards, printed contact lists, pinned maps | Confirms need for a digital shared board, coverage map, contact registry. |
-| **Props & technology in use** | Are they using phones/registers/Excel instead of a system? | Confirms the manual, unstructured process VERA replaces. |
-| **External information sources** | Sticky notes, wall posters of blood contacts | Shows reliance on ad-hoc records → need for structured donor/resource data. |
-| **Body language / behaviour during a request** | Rushing between calls, re-entering the same data | Confirms time pressure → drives the ≤5-step, fast-entry usability requirement. |
-
-STROBE findings are cross-checked against interview claims; any contradiction is flagged and re-confirmed before a requirement is accepted.
-
-### D2.4 Document Analysis Plan
-
-| Attribute | Detail |
-|-----------|--------|
-| **Sources** | Bangladesh disaster statistics, NGO relief reports, WHO coordination literature, similar platforms |
-| **Focus** | Common gaps, standards, proven features |
-| **Output** | Benchmarked requirements & differentiators |
-
-### D2.5 Discovery Schedule
-
-| Week | Activity | Output |
-|------|----------|--------|
-| 1 | Document analysis & observation | Problem notes, initial requirements |
-| 2 | Conduct stakeholder interviews | Qualitative themes |
-| 3 | Distribute & collect surveys | Quantitative data |
-| 4 | Synthesise & validate | Final requirement set (FR + NFR) |
+We study disaster reports, NGO relief records, old forms, and similar apps. This is **hard data** (Lecture 5) and helps us find real facts and common gaps.
 
 ---
 
-## D3. All Possible Functional Requirements
+## D3. Functional Requirements (All Found)
 
-Discovered functional requirements, grouped by module (traceable to SRS FR-01 → FR-25).
+These are the things the system **must do**. (Full details are in the SRS, FR-01 to FR-25.)
 
-### Authentication & User Management
-- **FR-01** Register with email, password, name, phone, role, optional org/address/blood group.
-- **FR-02** Log in and receive a JWT access token.
-- **FR-03** View own profile (role, verification status, blood group).
-- **FR-04** Enforce role-based access control (citizen, volunteer, donor, ngo, hospital, admin).
+**User accounts**
+- FR-01 Register with name, email, password, phone, and role.
+- FR-02 Log in and get a secure token.
+- FR-03 View own profile.
+- FR-04 Give different powers to different roles (citizen, volunteer, donor, NGO, hospital, admin).
 
-### Volunteer & Donor Management
-- **FR-05** Volunteers submit identity documents (NID/Passport) for verification.
-- **FR-06** Admins approve/reject verification and notify the volunteer.
-- **FR-07** Users register as blood donors with blood group and availability.
+**Volunteers and donors**
+- FR-05 Volunteer sends ID document for checking.
+- FR-06 Admin approves or rejects the volunteer.
+- FR-07 User registers as a blood donor.
 
-### Emergency & Blood Requests
-- **FR-08** Submit emergency requests (medical, blood, ambulance, food, shelter, rescue, transport, missing person, other) with location and contact.
-- **FR-09** List, view, and update emergency status (open, in_progress, verified, resolved, cancelled).
-- **FR-10** Create blood requests (patient, group, units, hospital, location, urgency).
-- **FR-11** Update/resolve blood request status.
-- **FR-12** Notify matching available donors and search donors by blood group.
+**Emergencies and blood**
+- FR-08 Create an emergency request (medical, blood, food, rescue, etc.).
+- FR-09 View and update emergency status (open, in progress, resolved…).
+- FR-10 Create a blood request.
+- FR-11 Update / resolve a blood request.
+- FR-12 Notify matching donors and search donors by blood group.
 
-### NGO, Resources & Coordination
-- **FR-13** Log relief resources (food, medicine, clothing, equipment, money) with quantity & location.
-- **FR-14** Create and update NGO coordination requests for volunteer support.
+**NGO, resources, donations**
+- FR-13 NGOs record relief resources (food, medicine, etc.).
+- FR-14 NGOs create coordination requests.
+- FR-15 Record donations.
+- FR-16 Create fundraising campaigns.
 
-### Donations & Fundraising
-- **FR-15** Record donations (money, food, medicine, clothing, equipment), optionally linked to a campaign.
-- **FR-16** Create fundraising campaigns with goal amount; raised amount updates on donation.
+**Shelters, incidents, coverage**
+- FR-17 Register shelters with capacity and beds.
+- FR-18 Report a disaster incident.
+- FR-19 Report which areas are covered or underserved.
 
-### Shelters, Incidents & Coverage
-- **FR-17** Register shelters with capacity, available beds, address, contact.
-- **FR-18** Report disaster incidents (type, severity, description, location).
-- **FR-19** Report area coverage status (served, partial, underserved, critical); critical areas trigger NGO alerts.
+**Volunteers, certificates, search**
+- FR-20 Post volunteer opportunities; volunteers apply.
+- FR-21 Give certificates with a code that anyone can verify.
+- FR-22 Search for nearby help by location.
 
-### Volunteers, Certificates & Search
-- **FR-20** Publish volunteer opportunities; volunteers apply; NGOs review applications.
-- **FR-21** Issue certificates with unique codes; public certificate verification.
-- **FR-22** Location-based search for nearby volunteers, hospitals, NGOs, donors, shelters, resources, emergencies.
-
-### Notifications & Reporting
-- **FR-23** Deliver in-app notifications (blood alerts, verification updates, coverage alerts); mark as read.
-- **FR-24** Dashboard statistics (users, open emergencies, blood requests, volunteers, campaigns, shelters, underserved areas, unread notifications).
-- **FR-25** Admin operational reports (users by role, emergencies by status, donations, campaigns, opportunities, incidents).
-
-> Full specifications in [`../srs/13-functional-requirements.md`](../srs/13-functional-requirements.md).
+**Notifications and reports**
+- FR-23 Send in-app notifications.
+- FR-24 Show dashboard statistics.
+- FR-25 Admin reports.
 
 ---
 
 ## D4. Non-Functional Requirements (at least five)
 
-| # | ID | Category | Requirement |
-|---|----|----------|-------------|
-| 1 | NFR-P01 | **Performance** | 95% of API requests complete within 2 seconds under normal load (≤100 concurrent users). |
-| 2 | NFR-S01 | **Security** | Passwords hashed with bcrypt; plain-text passwords are never stored. JWT-based authentication with role-based access control. |
-| 3 | NFR-U01 | **Usability** | The web UI is responsive and usable on desktop, tablet, and mobile; core flows complete in ≤ 5 steps. |
-| 4 | NFR-R01 | **Reliability / Availability** | Production system targets 99% monthly uptime; all records persisted before success response. |
-| 5 | NFR-M01 | **Maintainability / Scalability** | Modular architecture (routes, models, schemas, services); Alembic migration path; handles 10× traffic spikes during disasters. |
-| 6 | NFR-D03 | **Privacy** | User contact details exposed only to authenticated users within appropriate context. |
-| 7 | NFR-C01 | **Compatibility** | Supports the latest two versions of Chrome, Firefox, Edge, and Safari. |
+These describe the **qualities** of the system, not the tasks.
 
-> Full specifications in [`../srs/14-non-functional-requirements.md`](../srs/14-non-functional-requirements.md).
-
----
-
-## Phase Navigation
-
-| | Document |
-|---|----------|
-| **Previous** | [C — Feasibility Analysis](./C-feasibility-analysis.md) |
-| **Current** | D — Requirement Discovery |
+| # | Type | Requirement |
+|---|------|-------------|
+| 1 | **Performance** | Most pages/requests should respond within about 2 seconds under normal use. |
+| 2 | **Security** | Passwords are stored in a hashed (hidden) form; login uses a secure token; each role only sees what it is allowed to. |
+| 3 | **Usability** | The website should be easy to use on mobile and computer, and main tasks should take only a few steps. |
+| 4 | **Reliability** | The system should be available most of the time (target 99% uptime) and never lose saved data. |
+| 5 | **Scalability** | The system should still work when many people use it at once during a disaster. |
+| 6 | **Privacy** | A user's contact details are shown only to the right people. |
+| 7 | **Compatibility** | Works on the latest Chrome, Firefox, Edge, and Safari browsers. |
 
 ---
 
-*Phase 5 — System Analysis and Development Issues | VERA*
+## Short Answer (Summary)
+
+To discover requirements for VERA we used **four fact-finding methods**: **interviews** and **questionnaires** (interactive, Lecture 4) plus **observation** and **document analysis** (unobtrusive, Lecture 5). We planned the interviews using the **Funnel, Pyramid, and Diamond** question structures, planned the survey with a **sample size of about 385** people using the Lecture 5 sample-size idea, and planned observation using the **STROBE** technique. From this we found all the **functional requirements (FR-01 to FR-25)** and at least **five non-functional requirements** (performance, security, usability, reliability, scalability, privacy, compatibility).
+
+---
+
+*CSE307 — System Analysis and Design | Task 5(D) | VERA*
