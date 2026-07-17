@@ -24,9 +24,9 @@
 | **Approach** | Agile Scrum (see Section A), scheduled as an incremental plan |
 | **Total duration** | 78 working days (~16 weeks) |
 | **Team size** | 2 developers playing multiple roles |
-| **WBS basis** | **Entire project**, decomposed to module-level work packages |
+| **WBS basis** | **Entire project** (all 7 phases to Level 3); Development phase additionally decomposed by software module |
 
-The WBS below is based on the **entire project** and then decomposed by **software module** inside the Development work package (WBS 4). This gives full coverage of initiation, analysis, design, module development, testing, deployment, and closure.
+The task allows the WBS to be based on either the software modules **or** the entire project. VERA uses the **entire project** as the basis: **all seven Level-2 phases** — Initiation, Requirements, Design, Development, Testing, Deployment, and Documentation/Closure — are decomposed to Level-3 work packages. The **Development phase (1.4)** is *additionally* broken down **by software module**, so both interpretations of the requirement are satisfied. Development is not the only phase in the WBS; it is simply the phase with the most sub-items because it contains all the software modules.
 
 ---
 
@@ -66,17 +66,28 @@ The WBS below is based on the **entire project** and then decomposed by **softwa
 
 ### B1.3 WBS Diagram
 
+The WBS covers the **entire project**: all seven Level-2 phases are decomposed to Level-3 work packages. The `1.4 Development` phase is further broken down **by software module** (the module-based portion of the WBS), while the other phases are broken down by activity.
+
 ```mermaid
 graph TD
     P[1.0 VERA Platform]
-    P --> W1[1.1 Initiation & Planning]
-    P --> W2[1.2 Requirements & Analysis]
-    P --> W3[1.3 System Design]
-    P --> W4[1.4 Development]
-    P --> W5[1.5 Testing & QA]
-    P --> W6[1.6 Deployment]
-    P --> W7[1.7 Documentation & Closure]
 
+    P --> W1[1.1 Initiation & Planning]
+    W1 --> W1a[1.1.1 Scope & objectives]
+    W1 --> W1b[1.1.2 Team & roles]
+    W1 --> W1c[1.1.3 Project & sprint plan]
+
+    P --> W2[1.2 Requirements & Analysis]
+    W2 --> W2a[1.2.1 Requirement gathering]
+    W2 --> W2b[1.2.2 Analysis & SRS]
+    W2 --> W2c[1.2.3 Feasibility confirmation]
+
+    P --> W3[1.3 System Design]
+    W3 --> W3a[1.3.1 Architecture & DB design]
+    W3 --> W3b[1.3.2 UI/UX design]
+
+    P --> W4[1.4 Development - by module]
+    W4 --> M0[1.4.1 Environment setup]
     W4 --> M1[1.4.2 Auth & RBAC]
     W4 --> M2[1.4.3 Emergency & Incident]
     W4 --> M3[1.4.4 Blood & Donor Matching]
@@ -84,6 +95,17 @@ graph TD
     W4 --> M5[1.4.6 Shelters, Coverage, Volunteers]
     W4 --> M6[1.4.7 Search, Notifications, Reports]
     W4 --> M7[1.4.8 Frontend Integration]
+
+    P --> W5[1.5 Testing & QA]
+    W5 --> W5a[1.5.1 Functional & integration testing]
+    W5 --> W5b[1.5.2 Security review & fixes]
+
+    P --> W6[1.6 Deployment]
+    W6 --> W6a[1.6.1 Dockerize & OCI deploy]
+
+    P --> W7[1.7 Documentation & Closure]
+    W7 --> W7a[1.7.1 Documentation & training]
+    W7 --> W7b[1.7.2 Closure & handover]
 ```
 
 ---
