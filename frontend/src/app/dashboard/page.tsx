@@ -42,8 +42,11 @@ export default function DashboardPage() {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
             <p className="mt-2 text-slate-600">
-              Welcome, {user.full_name}. Signed in as {user.role}.
-              {user.is_verified ? " · Verified" : ""}
+              Welcome, {user.full_name}. Signed in as <span className="font-medium capitalize">{user.role}</span>
+              {user.is_verified ? " · Verified responder" : ""}.
+            </p>
+            <p className="mt-1 text-sm text-slate-500">
+              Use the links below to request help, coordinate relief, or review alerts.
             </p>
           </div>
 
@@ -58,7 +61,8 @@ export default function DashboardPage() {
             <StatCard label="Unread alerts" value={stats.unread_notifications} accent="bg-yellow-50 text-yellow-700" />
           </div>
 
-          <h2 className="mt-10 text-xl font-bold text-slate-900">Platform features</h2>
+          <h2 className="mt-10 text-xl font-bold text-slate-900">Go to a workspace</h2>
+          <p className="mt-1 text-sm text-slate-500">Jump into the module you need right now.</p>
           <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {featureLinks.map((item) => (
               <Link

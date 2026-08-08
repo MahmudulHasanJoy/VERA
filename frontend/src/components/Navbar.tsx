@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import SiteFooter from "@/components/SiteFooter";
 import { api } from "@/lib/api";
 import { clearToken, getToken } from "@/lib/auth";
 import type { User } from "@/types";
@@ -22,7 +23,7 @@ const navLinks = [
   { href: "/coverage", label: "Coverage" },
   { href: "/search", label: "Search" },
   { href: "/notifications", label: "Alerts" },
-  { href: "/admin", label: "Admin" },
+  { href: "/admin", label: "Admin", adminOnly: true },
 ];
 
 function Brand({ compact = false }: { compact?: boolean }) {
@@ -120,9 +121,12 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <main className="flex-1">{children}</main>
+        <SiteFooter />
       </div>
     );
   }
+
+  const visibleLinks = navLinks.filter((link) => !link.adminOnly || user.role === "admin");
 
   return (
     <div className="flex min-h-full">
@@ -145,7 +149,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-          {navLinks.map((link) => {
+          {visibleLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link

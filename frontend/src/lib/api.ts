@@ -287,6 +287,85 @@ export const api = {
     if (searchType) params.set("search_type", searchType);
     return request<NearbyResult[]>(`/api/v1/search/nearby?${params.toString()}`);
   },
+
+  assistantChat(payload: {
+    message: string;
+    history?: { role: "user" | "assistant"; content: string }[];
+    page_path?: string;
+  }) {
+    return request<{ reply: string }>(
+      "/api/v1/assistant/chat",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+      Boolean(getToken()),
+    );
+  },
+
+  async assistantChatStream(
+    payload: {
+      message: string;
+      history?: { role: "user" | "assistant"; content: string }[];
+      page_path?: string;
+    },
+    onDelta: (delta: string) => void,
+  ): Promise<void> {
+    const headers = new Headers({ "Content-Type": "application/json" });
+    const token = getToken();
+    if (token) headers.set("Authorization", `Bearer ${token}`);
+
+    const response = await fetch(`${API_URL}/api/v1/assistant/chat/stream`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      let message = "Request failed";
+      try {
+        const data = (await response.json()) as { detail?: string };
+        if (typeof data.detail === "string") message = data.detail;
+      } catch {
+        message = response.statusText;
+      }
+      throw new ApiError(message, response.status);
+    }
+
+    if (!response.body) {
+      throw new ApiError("No response stream from VERA Bot", 502);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const parts = buffer.split("\n\n");
+      buffer = parts.pop() ?? "";
+
+      for (const part of parts) {
+        const line = part
+          .split("\n")
+          .map((l) => l.trim())
+          .find((l) => l.startsWith("data:"));
+        if (!line) continue;
+        const raw = line.slice(5).trim();
+        if (!raw) continue;
+        let event: { delta?: string; done?: boolean; error?: string };
+        try {
+          event = JSON.parse(raw) as { delta?: string; done?: boolean; error?: string };
+        } catch {
+          continue;
+        }
+        if (event.error) throw new ApiError(event.error, 502);
+        if (event.delta) onDelta(event.delta);
+      }
+    }
+  },
 };
 
 export { ApiError };

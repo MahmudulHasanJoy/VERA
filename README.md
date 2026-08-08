@@ -45,6 +45,18 @@ docker compose up --build
 
 Starts Postgres, API (`:8000`), and web (`:3000`).
 
+## Production (Oracle Cloud / any Linux VM)
+
+Deploy the full stack (Nginx + frontend + backend + PostgreSQL) with:
+
+```bash
+cp deploy/.env.production.example deploy/.env
+# Edit deploy/.env — set PUBLIC_URL, POSTGRES_PASSWORD, SECRET_KEY
+./deploy/up.sh
+```
+
+Step-by-step OCI guide: [docs/deployment/OCI.md](docs/deployment/OCI.md)
+
 ## Tests
 
 ```bash

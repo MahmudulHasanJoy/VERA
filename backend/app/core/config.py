@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     sms_provider_url: str = ""
     sms_api_key: str = ""
 
+    # Gemini assistant (required for /assistant/chat)
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-flash-lite-latest"
+
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]

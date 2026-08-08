@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import Navbar from "@/components/Navbar";
+import VeraAssistant from "@/components/VeraAssistant";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-slate-50 text-slate-900" suppressHydrationWarning>
         <Navbar>{children}</Navbar>
+        <VeraAssistant />
       </body>
     </html>
   );

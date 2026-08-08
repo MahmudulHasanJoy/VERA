@@ -11,6 +11,12 @@ const features = [
   { title: "Disaster Coverage", description: "Monitor underserved areas and relief operations." },
 ];
 
+const trustPoints = [
+  { title: "Free to use", text: "Reporting, matching, and coordination stay free for communities." },
+  { title: "Verified volunteers", text: "ID verification helps responders earn trust before field work." },
+  { title: "Faster connection", text: "Blood, shelter, and relief requests reach the right people sooner." },
+];
+
 export default function HomePage() {
   return (
     <div>
@@ -55,8 +61,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 md:grid-cols-3">
+          {trustPoints.map((item) => (
+            <div key={item.title}>
+              <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+              <p className="mt-2 text-sm text-slate-600">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-bold text-slate-900">Platform capabilities</h2>
+        <div className="max-w-2xl">
+          <h2 className="text-2xl font-bold text-slate-900">Platform capabilities</h2>
+          <p className="mt-2 text-slate-600">
+            From first report to verified response — one place to request help, find donors, and
+            coordinate relief.
+          </p>
+        </div>
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature) => (
             <div
@@ -67,6 +90,20 @@ export default function HomePage() {
               <p className="mt-2 text-sm text-slate-600">{feature.description}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link
+            href="/register"
+            className="rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700"
+          >
+            Join VERA
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Continue to dashboard
+          </Link>
         </div>
       </section>
     </div>
