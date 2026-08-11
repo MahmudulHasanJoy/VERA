@@ -22,6 +22,7 @@ type LeafletMap = {
 type LeafletLayerGroup = {
   clearLayers: () => void;
   addLayer: (layer: unknown) => unknown;
+  addTo: (map: LeafletMap) => LeafletLayerGroup;
 };
 
 type LeafletLib = {
