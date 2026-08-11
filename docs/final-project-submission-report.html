@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VERA — Final Project Submission Report | CSE309</title>
+  <style>
+    :root {
+      --red: #b91c1c;
+      --red-dark: #7f1d1d;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #cbd5e1;
+      --bg-soft: #f8fafc;
+    }
+
+    * { box-sizing: border-box; }
+    html { font-size: 11pt; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.55;
+      background: #e2e8f0;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 12px auto;
+      padding: 18mm 18mm 20mm;
+      background: #fff;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    h1, h2, h3 { page-break-after: avoid; }
+    h1 { font-size: 1.55rem; margin: 0 0 0.6rem; color: var(--red-dark); }
+    h2 {
+      font-size: 1.2rem;
+      margin: 1.4rem 0 0.55rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid var(--red);
+      color: var(--red-dark);
+    }
+    h3 { font-size: 1.05rem; margin: 1rem 0 0.35rem; color: var(--ink); }
+    p { margin: 0.45rem 0; }
+    ul, ol { margin: 0.35rem 0 0.7rem; padding-left: 1.25rem; }
+    li { margin: 0.2rem 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.55rem 0 0.9rem;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 0.4rem 0.5rem;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--bg-soft); }
+    .muted { color: var(--muted); }
+    .center { text-align: center; }
+    .small { font-size: 0.9rem; }
+
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: calc(297mm - 36mm);
+      text-align: center;
+      background:
+        linear-gradient(160deg, #fff 0%, #fff7ed 42%, #fee2e2 100%);
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 28mm 14mm;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+    .cover h1 {
+      font-size: 2.1rem;
+      margin: 1rem 0 0.35rem;
+      color: var(--red-dark);
+      border: 0;
+    }
+    .cover .subtitle {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .cover .meta {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .cover .meta strong { color: var(--ink); }
+    .logo {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 0.8rem;
+      border-radius: 16px;
+      background: var(--red);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(185, 28, 28, 0.28);
+    }
+
+    .toc a { color: var(--ink); text-decoration: none; }
+    .toc li { margin: 0.35rem 0; }
+
+    .shot {
+      border: 1.5px dashed #94a3b8;
+      background: #f8fafc;
+      color: #64748b;
+      padding: 1.4rem;
+      text-align: center;
+      margin: 0.6rem 0 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    figure.screen {
+      margin: 0.7rem 0 1.1rem;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    figure.screen img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+    figure.screen figcaption {
+      margin-top: 0.35rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-note {
+      margin-top: 1.5rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .no-print {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+    .no-print button {
+      background: #dc2626;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 0.5rem 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .no-print span { opacity: 0.9; }
+
+    @media print {
+      body { background: #fff; }
+      .no-print { display: none !important; }
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      .cover {
+        min-height: 100vh;
+        page-break-after: always;
+        border: 0;
+        border-radius: 0;
+      }
+      h2 { page-break-before: auto; }
+      table, .shot, figure.screen { page-break-inside: avoid; }
+      figure.screen img { max-height: 210mm; object-fit: contain; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <strong>Print tip:</strong>
+    <span>Use color for the cover page if possible; rest can be B&amp;W. Margins: Default / Default.</span>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <!-- COVER -->
+  <section class="page">
+    <div class="cover">
+      <div>
+        <div class="logo">V</div>
+        <div class="cover-badge">CSE309 — Web Design | Final Project</div>
+        <h1>VERA</h1>
+        <p class="subtitle">Volunteer Emergency Response Alliance</p>
+        <p><strong>Final Project Submission Report</strong></p>
+      </div>
+
+      <div class="meta">
+        <p><strong>Course:</strong> CSE309 — Web Design</p>
+        <p><strong>Section:</strong> 06</p>
+        <p><strong>Instructor:</strong> Sayef Reyadh</p>
+        <p><strong>Institution:</strong> Independent University, Bangladesh (IUB)</p>
+        <p style="margin-top:1.2rem"><strong>Team</strong></p>
+        <p>2311960 — Md. Mahmudul Hasan</p>
+        <p>2310604 — Ridwan Hasan Khandakar</p>
+        <p style="margin-top:1.2rem"><strong>Evaluation Date:</strong> 13 August 2026</p>
+        <p><strong>Repository:</strong> github.com/MahmudulHasanJoy/VERA (main branch)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="page">
+    <h1>Final Project Submission Report</h1>
+    <p class="muted small">VERA — Volunteer Emergency Response Alliance | CSE309 Section 06</p>
+
+    <h2>1. Table of Contents</h2>
+    <ol class="toc">
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#intro">Introduction &amp; Motivation</a></li>
+      <li><a href="#problem">Problem Statement</a></li>
+      <li><a href="#objectives">Objectives &amp; Scope</a></li>
+      <li><a href="#team">Project Team</a></li>
+      <li><a href="#requirements">Requirements Summary</a></li>
+      <li><a href="#architecture">System Architecture &amp; Tech Stack</a></li>
+      <li><a href="#features">Implemented Features</a></li>
+      <li><a href="#assistant">Agentic AI Assistant (VERA Bot)</a></li>
+      <li><a href="#api">REST API Overview</a></li>
+      <li><a href="#testing">Testing &amp; Quality</a></li>
+      <li><a href="#deployment">Deployment &amp; How to Run</a></li>
+      <li><a href="#limitations">Limitations &amp; Future Work</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+      <li><a href="#refs">References &amp; Documentation</a></li>
+    </ol>
+
+    <h2 id="abstract">2. Abstract</h2>
+    <p>
+      VERA (Volunteer Emergency Response Alliance) is a full-stack web platform that centralizes
+      emergency assistance and resource coordination in Bangladesh. It connects citizens in need with
+      volunteers, blood donors, NGOs, hospitals, and administrators through one role-based system.
+    </p>
+    <p>
+      The MVP is built with a <strong>React (Next.js)</strong> frontend and a <strong>FastAPI (Python)</strong>
+      backend, using JWT authentication and a REST API. Core workflows include emergency requests,
+      blood donor matching, shelters, incident reporting, donations and campaigns, volunteer
+      opportunities, disaster coverage maps, notifications, and an in-app Gemini-powered assistant
+      (VERA Bot) that can query live platform data.
+    </p>
+
+    <h2 id="intro">3. Introduction &amp; Motivation</h2>
+    <p>
+      Bangladesh faces frequent medical emergencies and natural disasters. Today, people often seek help
+      through Facebook groups, WhatsApp chats, and informal networks. These channels are slow,
+      unverified, and hard to coordinate—especially when many organizations respond independently.
+    </p>
+    <p>
+      VERA replaces that fragmentation with a shared digital platform: submit requests, match donors,
+      track shelters and coverage, manage volunteers, and keep donation records transparent.
+    </p>
+
+    <h2 id="problem">4. Problem Statement</h2>
+    <table>
+      <thead>
+        <tr><th>Problem</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Slow emergency response via social media</td><td>Help arrives late when minutes matter</td></tr>
+        <tr><td>No central coordination among responders</td><td>Duplicate aid in some areas, gaps in others</td></tr>
+        <tr><td>Hard to find matching blood donors</td><td>Patients miss compatible donors</td></tr>
+        <tr><td>Opaque donations</td><td>Lower trust and repeat giving</td></tr>
+        <tr><td>No always-ready volunteer network</td><td>Teams assemble too late after disasters</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="objectives">5. Objectives &amp; Scope</h2>
+    <h3>5.1 Objectives</h3>
+    <ol>
+      <li>Provide one platform for emergency and resource coordination</li>
+      <li>Connect help-seekers with volunteers, donors, NGOs, and hospitals</li>
+      <li>Reduce response time for medical and disaster emergencies</li>
+      <li>Match blood requests to available donors with notifications</li>
+      <li>Support transparent donations and fundraising campaigns</li>
+      <li>Enable location-aware search, shelters, incidents, and coverage tracking</li>
+      <li>Support volunteer recruitment, applications, and certificates</li>
+    </ol>
+
+    <h3>5.2 In Scope (MVP)</h3>
+    <ul>
+      <li>Registration, login, and role-based access (citizen, volunteer, donor, NGO, hospital, admin)</li>
+      <li>Emergencies, blood requests, shelters, incidents, resources, donations, campaigns</li>
+      <li>Volunteer opportunities, applications, certificates</li>
+      <li>Notifications, nearby search, coverage map, admin reports</li>
+      <li>VERA Bot assistant with live database tools</li>
+    </ul>
+
+    <h3>5.3 Out of Scope (Current Phase)</h3>
+    <ul>
+      <li>Native mobile apps</li>
+      <li>Live payment gateway for donations</li>
+      <li>Deep government system integrations</li>
+      <li>Fully offline disaster-mode networking</li>
+    </ul>
+
+    <h2 id="team">6. Project Team</h2>
+    <table>
+      <thead>
+        <tr><th>Student ID</th><th>Name</th><th>Role / Contribution</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2311960</td><td>Md. Mahmudul Hasan</td><td>Full-stack development, documentation, demo</td></tr>
+        <tr><td>2310604</td><td>Ridwan Hasan Khandakar</td><td>Full-stack development, documentation, demo</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="requirements">7. Requirements Summary</h2>
+    <h3>7.1 Functional (selected)</h3>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Requirement</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FR-01–03</td><td>Register, JWT login, role-based access</td><td>P0</td></tr>
+        <tr><td>FR-06–07</td><td>Emergency request submit &amp; verify</td><td>P0</td></tr>
+        <tr><td>FR-08–09</td><td>Blood request &amp; donor notify/search</td><td>P0</td></tr>
+        <tr><td>FR-10–13</td><td>Resources, coordination, donations, campaigns</td><td>P1</td></tr>
+        <tr><td>FR-14–16</td><td>Notifications, shelters, incidents</td><td>P0/P1</td></tr>
+        <tr><td>FR-17–18</td><td>Volunteer opportunities &amp; certificates</td><td>P1/P2</td></tr>
+        <tr><td>FR-19+</td><td>Coverage monitoring, nearby search, admin reports</td><td>P1</td></tr>
+      </tbody>
+    </table>
+
+    <h3>7.2 Non-Functional</h3>
+    <ul>
+      <li><strong>Security:</strong> JWT auth, password hashing, role checks on APIs</li>
+      <li><strong>Usability:</strong> Simple UI for everyday users; sidebar navigation</li>
+      <li><strong>Reliability:</strong> Structured REST errors; local SQLite or Postgres</li>
+      <li><strong>Maintainability:</strong> Layered backend (routes/services/repositories), documented API</li>
+    </ul>
+
+    <h2 id="architecture">8. System Architecture &amp; Tech Stack</h2>
+    <p>VERA uses a three-tier client–server design:</p>
+    <table>
+      <thead>
+        <tr><th>Tier</th><th>Technology</th><th>Responsibility</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Presentation</td><td>Next.js 16, React 19, Tailwind CSS 4, Leaflet</td><td>UI, routing, maps</td></tr>
+        <tr><td>Application</td><td>FastAPI, Uvicorn, Pydantic, SQLAlchemy</td><td>Business logic, auth, validation</td></tr>
+        <tr><td>Data</td><td>SQLite (local) / PostgreSQL (Docker/prod)</td><td>Persistence (Alembic migrations)</td></tr>
+      </tbody>
+    </table>
+    <p>
+      Communication is JSON over HTTP REST. Protected endpoints require
+      <code>Authorization: Bearer &lt;JWT&gt;</code>.
+    </p>
+    <p class="small muted">
+      Course requirement note: Backend is FastAPI (Python). Frontend is React via the Next.js App Router.
+    </p>
+
+    <h2 id="features">9. Implemented Features</h2>
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>User registration &amp; JWT auth</td><td>Completed</td></tr>
+        <tr><td>Role-based access control</td><td>Completed</td></tr>
+        <tr><td>Volunteer verification (NID/Passport)</td><td>Completed</td></tr>
+        <tr><td>Become a donor</td><td>Completed</td></tr>
+        <tr><td>Emergency request submission &amp; verification</td><td>Completed</td></tr>
+        <tr><td>Blood requests, donor search &amp; notifications</td><td>Completed</td></tr>
+        <tr><td>NGO resource tracking &amp; coordination</td><td>Completed</td></tr>
+        <tr><td>Donations &amp; fundraising campaigns</td><td>Completed</td></tr>
+        <tr><td>Shelters &amp; incident reporting</td><td>Completed</td></tr>
+        <tr><td>Volunteer opportunities, applications, certificates</td><td>Completed</td></tr>
+        <tr><td>Disaster coverage monitoring (map)</td><td>Completed</td></tr>
+        <tr><td>Location-based nearby search</td><td>Completed</td></tr>
+        <tr><td>Admin operational reports / dashboard stats</td><td>Completed</td></tr>
+        <tr><td>VERA Bot (Gemini) global chat assistant</td><td>Completed</td></tr>
+      </tbody>
+    </table>
+
+    <h3>9.1 Key Screens</h3>
+    <p class="small muted">The following screenshots were captured from the running local MVP (<code>localhost:3000</code>) on 11 August 2026.</p>
+
+    <figure class="screen">
+      <img src="report-screenshots/01-dashboard.png" alt="VERA Dashboard" />
+      <figcaption>Figure 1. Dashboard — live stats and workspace shortcuts for an Admin user.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/02-emergencies.png" alt="Emergency Requests page" />
+      <figcaption>Figure 2. Emergencies — create urgent requests and review verified emergency cards.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/03-blood.png" alt="Blood Requests page" />
+      <figcaption>Figure 3. Blood — submit blood requests, mark urgency, search donors, and resolve requests.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/04-incidents.png" alt="Incident Reporting page" />
+      <figcaption>Figure 4. Incidents — report floods, fires, and other disasters with severity and location.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/05-shelters.png" alt="Shelter Management page" />
+      <figcaption>Figure 5. Shelters — publish shelter capacity and available beds for affected communities.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/06-donations.png" alt="Donations and Fundraising page" />
+      <figcaption>Figure 6. Donations &amp; Fundraising — donate money/in-kind support and create campaigns.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/07-resources.png" alt="Resources and NGO Coordination page" />
+      <figcaption>Figure 7. Resources &amp; NGO Coordination — track relief inventory and request organizational support.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/08-volunteers.png" alt="Volunteers page" />
+      <figcaption>Figure 8. Volunteers — publish opportunities, track slots, and issue participation certificates.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/09-coverage.png" alt="Disaster Coverage Monitoring page" />
+      <figcaption>Figure 9. Coverage — map-based disaster coverage reporting (served / underserved / critical).</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/10-search.png" alt="Location-Based Search page" />
+      <figcaption>Figure 10. Search — location-based nearby search with Leaflet / OpenStreetMap.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/11-notifications.png" alt="Notifications / Alerts page" />
+      <figcaption>Figure 11. Alerts — in-app notification inbox for blood matches and coordination updates.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/12-admin.png" alt="Admin Reports page" />
+      <figcaption>Figure 12. Admin Reports — operational overview of users, emergencies, donations, and incidents.</figcaption>
+    </figure>
+
+    <figure class="screen">
+      <img src="report-screenshots/13-vera-bot.png" alt="VERA Bot assistant on Admin page" />
+      <figcaption>Figure 13. VERA Bot — Gemini-powered assistant answering with live platform data (open incidents).</figcaption>
+    </figure>
+
+    <h2 id="assistant">10. Agentic AI Assistant (VERA Bot)</h2>
+    <p>
+      VERA Bot is a floating assistant available across the website. It uses the Google Gemini API
+      through a FastAPI endpoint (<code>/api/v1/assistant/chat</code> and streaming
+      <code>/chat/stream</code>).
+    </p>
+    <ul>
+      <li>Answers in simple language for everyday users</li>
+      <li>Uses live platform snapshot (counts) plus database tools for lists/details</li>
+      <li>Can look up emergencies, blood requests/donors, shelters, incidents, resources,
+          campaigns, volunteers, coverage, and user alerts</li>
+      <li>For life-threatening cases, advises calling <strong>999</strong> first</li>
+    </ul>
+
+    <h2 id="api">11. REST API Overview</h2>
+    <p>Interactive docs: <code>http://localhost:8000/docs</code></p>
+    <table>
+      <thead>
+        <tr><th>Area</th><th>Example endpoints</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Auth</td><td><code>/api/v1/auth/register</code>, <code>/login</code>, <code>/me</code></td></tr>
+        <tr><td>Emergencies</td><td><code>/api/v1/emergencies</code></td></tr>
+        <tr><td>Blood</td><td><code>/api/v1/blood/requests</code>, <code>/donors</code></td></tr>
+        <tr><td>Features</td><td>resources, donations, shelters, incidents, opportunities, coverage…</td></tr>
+        <tr><td>Search / Stats</td><td><code>/api/v1/search/nearby</code>, <code>/stats/dashboard</code></td></tr>
+        <tr><td>Assistant</td><td><code>/api/v1/assistant/chat</code>, <code>/chat/stream</code></td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="testing">12. Testing &amp; Quality</h2>
+    <ul>
+      <li>Backend pytest suite for auth, emergencies, and blood notification flows</li>
+      <li>Manual end-to-end demo dry-run: frontend ↔ backend REST flows verified</li>
+      <li>Supporting notes in <code>docs/REGRESSION_PASS.md</code>, <code>docs/PERFORMANCE_SMOKE.md</code>,
+          <code>docs/SECURITY_REVIEW.md</code></li>
+    </ul>
+    <p class="small">Run tests:</p>
+    <pre style="background:#f8fafc;border:1px solid #cbd5e1;padding:0.7rem;border-radius:6px;font-size:0.9rem;">cd backend
+python -m pip install -r requirements.txt
+python -m pytest -q</pre>
+
+    <h2 id="deployment">13. Deployment &amp; How to Run</h2>
+    <h3>13.1 Local demo (recommended for viva)</h3>
+    <pre style="background:#f8fafc;border:1px solid #cbd5e1;padding:0.7rem;border-radius:6px;font-size:0.9rem;">npm run setup
+npm run dev
+# App: http://localhost:3000
+# API docs: http://localhost:8000/docs</pre>
+    <p class="small">
+      For VERA Bot, set <code>GEMINI_API_KEY</code> in <code>backend/.env</code>
+      (model default: <code>gemini-flash-lite-latest</code>).
+    </p>
+
+    <h3>13.2 Production / Docker</h3>
+    <ul>
+      <li><code>docker compose up --build</code> for local containers</li>
+      <li>OCI / VM production: <code>docs/deployment/OCI.md</code> with Nginx + Postgres</li>
+    </ul>
+
+    <h2 id="limitations">14. Limitations &amp; Future Work</h2>
+    <ul>
+      <li>No live payment gateway (donations tracked in-app)</li>
+      <li>Email/SMS notifications optional and env-gated</li>
+      <li>No native mobile apps yet</li>
+      <li>Future: stronger offline resilience, richer analytics, government integrations</li>
+    </ul>
+
+    <h2 id="conclusion">15. Conclusion</h2>
+    <p>
+      VERA delivers a working emergency-response MVP that meets the course stack requirement
+      (FastAPI + React) and demonstrates end-to-end features from authentication through coordination
+      workflows, maps, and an AI assistant grounded in live data. The project shows how a centralized
+      platform can improve speed, coordination, and transparency for emergency assistance in Bangladesh.
+    </p>
+
+    <h2 id="refs">16. References &amp; Project Documentation</h2>
+    <ol>
+      <li>Project Overview — <code>docs/business-analysis/01-project-overview.md</code></li>
+      <li>Problem Statement — <code>docs/business-analysis/02-problem-statement.md</code></li>
+      <li>PRD — <code>docs/prd/08-prd.md</code></li>
+      <li>SRS — <code>docs/srs/17-srs.md</code></li>
+      <li>TDD — <code>docs/tdd/20-tdd.md</code></li>
+      <li>API Design — <code>docs/tdd/22-api-design.md</code></li>
+      <li>README — project root</li>
+      <li>Deployment — <code>docs/deployment/OCI.md</code></li>
+      <li>FastAPI documentation — https://fastapi.tiangolo.com/</li>
+      <li>Next.js / React documentation — https://nextjs.org/ / https://react.dev/</li>
+      <li>Google Gemini API — https://ai.google.dev/</li>
+    </ol>
+
+    <div class="footer-note">
+      Declaration: This report summarizes the VERA final project developed for CSE309 (Section 06).
+      Source code is maintained on the <strong>main</strong> branch of the project repository.
+      Printed for evaluation on 13 August 2026.
+    </div>
+  </section>
+</body>
+</html>

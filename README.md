@@ -45,6 +45,16 @@ docker compose up --build
 
 Starts Postgres, API (`:8000`), and web (`:3000`).
 
+## Production (Vercel + Supabase)
+
+Recommended live setup:
+
+- **Frontend:** Vercel (`frontend/`)
+- **API:** Railway / Render (`backend/`)
+- **Database:** Supabase Postgres
+
+Step-by-step: [docs/deployment/VERCEL_SUPABASE.md](docs/deployment/VERCEL_SUPABASE.md)
+
 ## Production (Oracle Cloud / any Linux VM)
 
 Deploy the full stack (Nginx + frontend + backend + PostgreSQL) with:

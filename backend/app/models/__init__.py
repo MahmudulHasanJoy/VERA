@@ -7,6 +7,15 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.core.database import Base
 
 
+def pg_enum(enum_cls: type[enum.Enum], **kwargs):
+    """Persist enum *values* (e.g. ngo) so Postgres native enums accept inserts."""
+    return Enum(
+        enum_cls,
+        values_callable=lambda members: [item.value for item in members],
+        **kwargs,
+    )
+
+
 class UserRole(str, enum.Enum):
     CITIZEN = "citizen"
     VOLUNTEER = "volunteer"
@@ -117,19 +126,19 @@ class User(Base):
     full_name: Mapped[str] = mapped_column(String(255))
     phone: Mapped[str | None] = mapped_column(String(32), nullable=True)
     hashed_password: Mapped[str] = mapped_column(String(255))
-    role: Mapped[UserRole] = mapped_column(Enum(UserRole), default=UserRole.CITIZEN)
+    role: Mapped[UserRole] = mapped_column(pg_enum(UserRole), default=UserRole.CITIZEN)
     organization_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     address: Mapped[str | None] = mapped_column(String(500), nullable=True)
     latitude: Mapped[float | None] = mapped_column(Float, nullable=True)
     longitude: Mapped[float | None] = mapped_column(Float, nullable=True)
-    blood_group: Mapped[BloodGroup | None] = mapped_column(Enum(BloodGroup), nullable=True)
+    blood_group: Mapped[BloodGroup | None] = mapped_column(pg_enum(BloodGroup), nullable=True)
     available_for_donation: Mapped[bool] = mapped_column(Boolean, default=False)
-    id_document_type: Mapped[DocumentType | None] = mapped_column(Enum(DocumentType), nullable=True)
+    id_document_type: Mapped[DocumentType | None] = mapped_column(pg_enum(DocumentType), nullable=True)
     id_document_number: Mapped[str | None] = mapped_column(String(64), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     verification_status: Mapped[VerificationStatus] = mapped_column(
-        Enum(VerificationStatus), default=VerificationStatus.PENDING
+        pg_enum(VerificationStatus), default=VerificationStatus.PENDING
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
@@ -147,9 +156,9 @@ class EmergencyRequest(Base):
     requester_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     title: Mapped[str] = mapped_column(String(255))
     description: Mapped[str] = mapped_column(Text)
-    emergency_type: Mapped[EmergencyType] = mapped_column(Enum(EmergencyType))
+    emergency_type: Mapped[EmergencyType] = mapped_column(pg_enum(EmergencyType))
     status: Mapped[EmergencyStatus] = mapped_column(
-        Enum(EmergencyStatus), default=EmergencyStatus.OPEN
+        pg_enum(EmergencyStatus), default=EmergencyStatus.OPEN
     )
     location: Mapped[str | None] = mapped_column(String(500), nullable=True)
     latitude: Mapped[float | None] = mapped_column(Float, nullable=True)
@@ -171,14 +180,14 @@ class BloodRequest(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     requester_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     patient_name: Mapped[str] = mapped_column(String(255))
-    blood_group: Mapped[BloodGroup] = mapped_column(Enum(BloodGroup))
+    blood_group: Mapped[BloodGroup] = mapped_column(pg_enum(BloodGroup))
     units_needed: Mapped[int] = mapped_column(default=1)
     hospital_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     location: Mapped[str | None] = mapped_column(String(500), nullable=True)
     contact_phone: Mapped[str] = mapped_column(String(32))
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[EmergencyStatus] = mapped_column(
-        Enum(EmergencyStatus), default=EmergencyStatus.OPEN
+        pg_enum(EmergencyStatus), default=EmergencyStatus.OPEN
     )
     is_urgent: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
@@ -192,7 +201,7 @@ class Resource(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     organization_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     name: Mapped[str] = mapped_column(String(255))
-    resource_type: Mapped[ResourceType] = mapped_column(Enum(ResourceType))
+    resource_type: Mapped[ResourceType] = mapped_column(pg_enum(ResourceType))
     quantity: Mapped[int] = mapped_column(Integer, default=0)
     unit: Mapped[str] = mapped_column(String(32), default="units")
     location: Mapped[str | None] = mapped_column(String(500), nullable=True)
@@ -212,7 +221,7 @@ class NGOCoordination(Base):
     volunteers_needed: Mapped[int] = mapped_column(Integer, default=0)
     location: Mapped[str | None] = mapped_column(String(500), nullable=True)
     status: Mapped[CoordinationStatus] = mapped_column(
-        Enum(CoordinationStatus), default=CoordinationStatus.OPEN
+        pg_enum(CoordinationStatus), default=CoordinationStatus.OPEN
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
@@ -223,7 +232,7 @@ class Donation(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     donor_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     campaign_id: Mapped[int | None] = mapped_column(ForeignKey("fundraising_campaigns.id"), nullable=True)
-    donation_type: Mapped[DonationType] = mapped_column(Enum(DonationType))
+    donation_type: Mapped[DonationType] = mapped_column(pg_enum(DonationType))
     amount: Mapped[float | None] = mapped_column(Float, nullable=True)
     item_description: Mapped[str | None] = mapped_column(Text, nullable=True)
     allocated_to: Mapped[str | None] = mapped_column(String(255), nullable=True)
@@ -240,7 +249,7 @@ class FundraisingCampaign(Base):
     cause: Mapped[str] = mapped_column(String(255))
     goal_amount: Mapped[float] = mapped_column(Float)
     raised_amount: Mapped[float] = mapped_column(Float, default=0)
-    status: Mapped[CampaignStatus] = mapped_column(Enum(CampaignStatus), default=CampaignStatus.ACTIVE)
+    status: Mapped[CampaignStatus] = mapped_column(pg_enum(CampaignStatus), default=CampaignStatus.ACTIVE)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 
@@ -285,7 +294,7 @@ class IncidentReport(Base):
     latitude: Mapped[float | None] = mapped_column(Float, nullable=True)
     longitude: Mapped[float | None] = mapped_column(Float, nullable=True)
     status: Mapped[EmergencyStatus] = mapped_column(
-        Enum(EmergencyStatus), default=EmergencyStatus.OPEN
+        pg_enum(EmergencyStatus), default=EmergencyStatus.OPEN
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
@@ -303,7 +312,7 @@ class VolunteerOpportunity(Base):
     start_date: Mapped[str | None] = mapped_column(String(32), nullable=True)
     end_date: Mapped[str | None] = mapped_column(String(32), nullable=True)
     status: Mapped[OpportunityStatus] = mapped_column(
-        Enum(OpportunityStatus), default=OpportunityStatus.OPEN
+        pg_enum(OpportunityStatus), default=OpportunityStatus.OPEN
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
@@ -315,7 +324,7 @@ class VolunteerApplication(Base):
     opportunity_id: Mapped[int] = mapped_column(ForeignKey("volunteer_opportunities.id"))
     volunteer_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     status: Mapped[ApplicationStatus] = mapped_column(
-        Enum(ApplicationStatus), default=ApplicationStatus.PENDING
+        pg_enum(ApplicationStatus), default=ApplicationStatus.PENDING
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
@@ -339,7 +348,7 @@ class DisasterCoverage(Base):
     area_name: Mapped[str] = mapped_column(String(255))
     latitude: Mapped[float] = mapped_column(Float)
     longitude: Mapped[float] = mapped_column(Float)
-    coverage_status: Mapped[CoverageStatus] = mapped_column(Enum(CoverageStatus))
+    coverage_status: Mapped[CoverageStatus] = mapped_column(pg_enum(CoverageStatus))
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     reported_by: Mapped[int] = mapped_column(ForeignKey("users.id"))
     updated_at: Mapped[datetime] = mapped_column(

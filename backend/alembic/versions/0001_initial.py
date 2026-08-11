@@ -31,11 +31,11 @@ def upgrade() -> None:
         sa.Column("latitude", sa.Float(), nullable=True),
         sa.Column("longitude", sa.Float(), nullable=True),
         sa.Column("blood_group", sa.Enum("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", name="bloodgroup"), nullable=True),
-        sa.Column("available_for_donation", sa.Boolean(), server_default=sa.text("0"), nullable=False),
+        sa.Column("available_for_donation", sa.Boolean(), server_default=sa.false(), nullable=False),
         sa.Column("id_document_type", sa.Enum("nid", "passport", "other", name="documenttype"), nullable=True),
         sa.Column("id_document_number", sa.String(64), nullable=True),
-        sa.Column("is_active", sa.Boolean(), server_default=sa.text("1"), nullable=False),
-        sa.Column("is_verified", sa.Boolean(), server_default=sa.text("0"), nullable=False),
+        sa.Column("is_active", sa.Boolean(), server_default=sa.true(), nullable=False),
+        sa.Column("is_verified", sa.Boolean(), server_default=sa.false(), nullable=False),
         sa.Column("verification_status", sa.Enum("pending", "approved", "rejected", name="verificationstatus"), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
     )
@@ -74,7 +74,7 @@ def upgrade() -> None:
         sa.Column("longitude", sa.Float(), nullable=True),
         sa.Column("contact_phone", sa.String(32), nullable=True),
         sa.Column("assigned_volunteer_id", sa.Integer(), sa.ForeignKey("users.id"), nullable=True),
-        sa.Column("is_verified", sa.Boolean(), server_default=sa.text("0"), nullable=False),
+        sa.Column("is_verified", sa.Boolean(), server_default=sa.false(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
         sa.Column("updated_at", sa.DateTime(), nullable=False),
     )
@@ -96,7 +96,7 @@ def upgrade() -> None:
             sa.Enum("open", "in_progress", "verified", "resolved", "cancelled", name="emergencystatus"),
             nullable=False,
         ),
-        sa.Column("is_urgent", sa.Boolean(), server_default=sa.text("1"), nullable=False),
+        sa.Column("is_urgent", sa.Boolean(), server_default=sa.true(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
     )
     op.create_index("ix_blood_requests_id", "blood_requests", ["id"])
@@ -176,7 +176,7 @@ def upgrade() -> None:
         sa.Column("title", sa.String(255), nullable=False),
         sa.Column("message", sa.Text(), nullable=False),
         sa.Column("link", sa.String(255), nullable=True),
-        sa.Column("is_read", sa.Boolean(), server_default=sa.text("0"), nullable=False),
+        sa.Column("is_read", sa.Boolean(), server_default=sa.false(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
     )
     op.create_index("ix_notifications_id", "notifications", ["id"])
@@ -192,7 +192,7 @@ def upgrade() -> None:
         sa.Column("latitude", sa.Float(), nullable=True),
         sa.Column("longitude", sa.Float(), nullable=True),
         sa.Column("managed_by", sa.Integer(), sa.ForeignKey("users.id"), nullable=True),
-        sa.Column("is_active", sa.Boolean(), server_default=sa.text("1"), nullable=False),
+        sa.Column("is_active", sa.Boolean(), server_default=sa.true(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=False),
     )
     op.create_index("ix_shelters_id", "shelters", ["id"])
@@ -251,7 +251,7 @@ def upgrade() -> None:
         sa.Column("program_name", sa.String(255), nullable=False),
         sa.Column("certificate_code", sa.String(64), nullable=False),
         sa.Column("issue_date", sa.DateTime(), nullable=False),
-        sa.Column("is_verified", sa.Boolean(), server_default=sa.text("1"), nullable=False),
+        sa.Column("is_verified", sa.Boolean(), server_default=sa.true(), nullable=False),
     )
     op.create_index("ix_certificates_id", "certificates", ["id"])
     op.create_index("ix_certificates_certificate_code", "certificates", ["certificate_code"], unique=True)
