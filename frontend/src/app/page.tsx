@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+import { isAuthenticated } from "@/lib/auth";
 
 const features = [
   { title: "Emergency Requests", description: "Medical, rescue, shelter, transport, and missing person reports." },
@@ -18,6 +23,12 @@ const trustPoints = [
 ];
 
 export default function HomePage() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(isAuthenticated());
+  }, []);
+
   return (
     <div>
       <section className="relative overflow-hidden bg-gradient-to-br from-red-700 via-red-600 to-orange-500 text-white">
@@ -34,18 +45,37 @@ export default function HomePage() {
               Bangladesh — linking citizens, volunteers, hospitals, NGOs, and donors.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/register"
-                className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-red-700 hover:bg-red-50"
-              >
-                Get Started
-              </Link>
-              <Link
-                href="/login"
-                className="rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
-              >
-                Sign In
-              </Link>
+              {loggedIn ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-red-700 hover:bg-red-50"
+                  >
+                    Go to Dashboard
+                  </Link>
+                  <Link
+                    href="/emergencies"
+                    className="rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+                  >
+                    Report Emergency
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/register"
+                    className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-red-700 hover:bg-red-50"
+                  >
+                    Get Started
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+                  >
+                    Sign In
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 
@@ -92,18 +122,29 @@ export default function HomePage() {
           ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link
-            href="/register"
-            className="rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700"
-          >
-            Join VERA
-          </Link>
-          <Link
-            href="/login"
-            className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-          >
-            Continue to dashboard
-          </Link>
+          {loggedIn ? (
+            <Link
+              href="/dashboard"
+              className="rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700"
+            >
+              Open dashboard
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/register"
+                className="rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700"
+              >
+                Join VERA
+              </Link>
+              <Link
+                href="/login"
+                className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                Continue to dashboard
+              </Link>
+            </>
+          )}
         </div>
       </section>
     </div>
