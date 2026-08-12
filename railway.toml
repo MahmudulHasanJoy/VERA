@@ -5,4 +5,6 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 healthcheckPath = "/health"
+healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"
+# Intentionally no startCommand — Dockerfile CMD must run (expands PORT).

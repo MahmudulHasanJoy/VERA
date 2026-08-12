@@ -15,4 +15,6 @@ RUN sed -i 's/\r$//' entrypoint.sh && chmod +x entrypoint.sh
 
 EXPOSE 8000
 
-CMD ["./entrypoint.sh"]
+# Shell form so ${PORT} expands. Do NOT set a Railway "Custom Start Command"
+# with a bare `$PORT` — Railway will pass it as a literal string.
+CMD ["sh", "-c", "alembic upgrade head || echo 'alembic failed — continuing'; exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
