@@ -1,0 +1,8 @@
+# Forces Railway to deploy the Python API instead of the Node monorepo root.
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/health"
+restartPolicyType = "ON_FAILURE"

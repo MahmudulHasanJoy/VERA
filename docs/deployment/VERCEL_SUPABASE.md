@@ -50,22 +50,23 @@ Vercel cannot run your FastAPI app as a normal always-on API. Deploy the backend
 1. Go to [https://railway.app](https://railway.app) and sign in with GitHub.
 2. **New Project** → **Deploy from GitHub repo** → select `MahmudulHasanJoy/VERA`.
 
-### 1.2 Configure the service
+### 1.2 Configure the service (important)
 
-In the service settings:
+Railway must **not** run `npm start`. If logs show `Missing script: "start"`, it is still treating the repo as Node.
 
-- **Root Directory:** `backend`  
-  (or set start command that `cd`s into backend)
-- **Start Command:**
-  ```bash
-  uvicorn app.main:app --host 0.0.0.0 --port $PORT
-  ```
-- **Watch Paths / Build:** Railway should install from `backend/requirements.txt`.  
-  If needed, set:
-  ```bash
-  pip install -r requirements.txt
-  ```
+**Easiest fix (recommended):** this repo includes a root `Dockerfile` + `railway.toml` that force the FastAPI API image. Redeploy after pulling latest `main`.
 
+**Or set manually in Settings:**
+
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | leave empty **or** `backend` |
+| **Builder** | Dockerfile (auto via `railway.toml`) |
+| **Custom Start Command** | leave empty (uses `entrypoint.sh`) — or `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+
+If you previously created a Node/frontend service, delete it and create a **new** service from GitHub so it picks up `railway.toml`.
+
+Do **not** set start command to `npm start`.
 ### 1.3 Add environment variables (Railway → Variables)
 
 ```env
