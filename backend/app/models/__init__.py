@@ -140,6 +140,8 @@ class User(Base):
     verification_status: Mapped[VerificationStatus] = mapped_column(
         pg_enum(VerificationStatus), default=VerificationStatus.PENDING
     )
+    password_reset_token_hash: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    password_reset_expires: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     emergency_requests: Mapped[list["EmergencyRequest"]] = relationship(

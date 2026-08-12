@@ -94,6 +94,29 @@ export const api = {
     return data;
   },
 
+  forgotPassword(email: string) {
+    return request<{
+      message: string;
+      reset_token?: string | null;
+      reset_url?: string | null;
+    }>(
+      "/api/v1/auth/forgot-password",
+      { method: "POST", body: JSON.stringify({ email }) },
+      false,
+    );
+  },
+
+  resetPassword(token: string, new_password: string) {
+    return request<{ message: string }>(
+      "/api/v1/auth/reset-password",
+      {
+        method: "POST",
+        body: JSON.stringify({ token, new_password }),
+      },
+      false,
+    );
+  },
+
   logout() {
     clearToken();
   },

@@ -46,6 +46,22 @@ class UserLogin(BaseModel):
     password: str
 
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ForgotPasswordResponse(BaseModel):
+    message: str
+    # Present only when SMTP is not configured (demo / local fallback).
+    reset_token: str | None = None
+    reset_url: str | None = None
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str = Field(min_length=20, max_length=200)
+    new_password: str = Field(min_length=8, max_length=128)
+
+
 class UserRead(UserBase):
     model_config = ConfigDict(from_attributes=True)
 

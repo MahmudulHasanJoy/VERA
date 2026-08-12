@@ -235,6 +235,9 @@
         <p>2310604 — Ridwan Hasan Khandakar</p>
         <p style="margin-top:1.2rem"><strong>Evaluation Date:</strong> 13 August 2026</p>
         <p><strong>Repository:</strong> github.com/MahmudulHasanJoy/VERA (main branch)</p>
+        <p style="margin-top:1.2rem"><strong>Live Demo</strong></p>
+        <p>Frontend: vera-frontend-indol.vercel.app</p>
+        <p>API: vera-production-117c.up.railway.app</p>
       </div>
     </div>
   </section>
@@ -274,7 +277,8 @@
       backend, using JWT authentication and a REST API. Core workflows include emergency requests,
       blood donor matching, shelters, incident reporting, donations and campaigns, volunteer
       opportunities, disaster coverage maps, notifications, and an in-app Gemini-powered assistant
-      (VERA Bot) that can query live platform data.
+      (VERA Bot) that can query live platform data. The production stack is deployed as
+      <strong>Vercel</strong> (frontend) + <strong>Railway</strong> (API) + <strong>Supabase PostgreSQL</strong> (database).
     </p>
 
     <h2 id="intro">3. Introduction &amp; Motivation</h2>
@@ -374,15 +378,24 @@
         <tr><th>Tier</th><th>Technology</th><th>Responsibility</th></tr>
       </thead>
       <tbody>
-        <tr><td>Presentation</td><td>Next.js 16, React 19, Tailwind CSS 4, Leaflet</td><td>UI, routing, maps</td></tr>
-        <tr><td>Application</td><td>FastAPI, Uvicorn, Pydantic, SQLAlchemy</td><td>Business logic, auth, validation</td></tr>
-        <tr><td>Data</td><td>SQLite (local) / PostgreSQL (Docker/prod)</td><td>Persistence (Alembic migrations)</td></tr>
+        <tr><td>Presentation</td><td>Next.js 16, React 19, Tailwind CSS 4, Leaflet</td><td>UI, routing, maps (Vercel)</td></tr>
+        <tr><td>Application</td><td>FastAPI, Uvicorn, Pydantic, SQLAlchemy</td><td>Business logic, JWT auth, validation (Railway)</td></tr>
+        <tr><td>Data</td><td>SQLite (local) / Supabase PostgreSQL (prod)</td><td>Persistence (Alembic migrations)</td></tr>
+        <tr><td>AI</td><td>Google Gemini (<code>gemini-flash-lite-latest</code>)</td><td>VERA Bot chat + DB tool calling</td></tr>
       </tbody>
     </table>
     <p>
       Communication is JSON over HTTP REST. Protected endpoints require
-      <code>Authorization: Bearer &lt;JWT&gt;</code>.
+      <code>Authorization: Bearer &lt;JWT&gt;</code>. Auth remains VERA JWT (not Supabase Auth);
+      Supabase is used as the hosted Postgres database only.
     </p>
+    <pre style="background:#f8fafc;border:1px solid #cbd5e1;padding:0.7rem;border-radius:6px;font-size:0.88rem;">Browser → Vercel (Next.js)
+              │  NEXT_PUBLIC_API_URL
+              ▼
+         Railway (FastAPI)
+              │  DATABASE_URL (pooler + sslmode=require)
+              ▼
+         Supabase (PostgreSQL)</pre>
     <p class="small muted">
       Course requirement note: Backend is FastAPI (Python). Frontend is React via the Next.js App Router.
     </p>
@@ -411,7 +424,11 @@
     </table>
 
     <h3>9.1 Key Screens</h3>
-    <p class="small muted">The following screenshots were captured from the running local MVP (<code>localhost:3000</code>) on 11 August 2026.</p>
+    <p class="small muted">
+      Screenshots below were captured from the running MVP (<code>localhost:3000</code>) on 11 August 2026.
+      The same features are available on the live demo:
+      <strong>https://vera-frontend-indol.vercel.app</strong>
+    </p>
 
     <figure class="screen">
       <img src="report-screenshots/01-dashboard.png" alt="VERA Dashboard" />
@@ -493,7 +510,11 @@
     </ul>
 
     <h2 id="api">11. REST API Overview</h2>
-    <p>Interactive docs: <code>http://localhost:8000/docs</code></p>
+    <p>
+      Interactive docs (local): <code>http://localhost:8000/docs</code><br />
+      Interactive docs (live): <code>https://vera-production-117c.up.railway.app/docs</code><br />
+      Health: <code>https://vera-production-117c.up.railway.app/health</code>
+    </p>
     <table>
       <thead>
         <tr><th>Area</th><th>Example endpoints</th></tr>
@@ -521,7 +542,38 @@ python -m pip install -r requirements.txt
 python -m pytest -q</pre>
 
     <h2 id="deployment">13. Deployment &amp; How to Run</h2>
-    <h3>13.1 Local demo (recommended for viva)</h3>
+    <h3>13.1 Live production URLs (evaluation)</h3>
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Host</th><th>URL</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Website</td>
+          <td>Vercel</td>
+          <td><code>https://vera-frontend-indol.vercel.app</code></td>
+        </tr>
+        <tr>
+          <td>API</td>
+          <td>Railway</td>
+          <td><code>https://vera-production-117c.up.railway.app</code></td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Supabase (Postgres)</td>
+          <td>Project <code>mwsqekmbqrblaglffclb</code> (ap-southeast-2)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="small">
+      Frontend env: <code>NEXT_PUBLIC_API_URL</code> points at the Railway API.
+      Backend env: <code>DATABASE_URL</code> (Supabase pooler + <code>sslmode=require</code>),
+      <code>SECRET_KEY</code>, <code>CORS_ORIGINS</code>, <code>GEMINI_API_KEY</code>,
+      <code>GEMINI_MODEL=gemini-flash-lite-latest</code>.
+      Railway builds from the repo-root <code>Dockerfile</code> / <code>railway.toml</code>.
+    </p>
+
+    <h3>13.2 Local demo (optional for viva)</h3>
     <pre style="background:#f8fafc;border:1px solid #cbd5e1;padding:0.7rem;border-radius:6px;font-size:0.9rem;">npm run setup
 npm run dev
 # App: http://localhost:3000
@@ -531,10 +583,11 @@ npm run dev
       (model default: <code>gemini-flash-lite-latest</code>).
     </p>
 
-    <h3>13.2 Production / Docker</h3>
+    <h3>13.3 Other run options</h3>
     <ul>
       <li><code>docker compose up --build</code> for local containers</li>
-      <li>OCI / VM production: <code>docs/deployment/OCI.md</code> with Nginx + Postgres</li>
+      <li>Cloud guide: <code>docs/deployment/VERCEL_SUPABASE.md</code></li>
+      <li>OCI / VM: <code>docs/deployment/OCI.md</code> with Nginx + Postgres</li>
     </ul>
 
     <h2 id="limitations">14. Limitations &amp; Future Work</h2>
@@ -549,8 +602,10 @@ npm run dev
     <p>
       VERA delivers a working emergency-response MVP that meets the course stack requirement
       (FastAPI + React) and demonstrates end-to-end features from authentication through coordination
-      workflows, maps, and an AI assistant grounded in live data. The project shows how a centralized
-      platform can improve speed, coordination, and transparency for emergency assistance in Bangladesh.
+      workflows, maps, and an AI assistant grounded in live data. The production deployment on
+      Vercel, Railway, and Supabase shows the system running beyond localhost. The project shows how
+      a centralized platform can improve speed, coordination, and transparency for emergency
+      assistance in Bangladesh.
     </p>
 
     <h2 id="refs">16. References &amp; Project Documentation</h2>
@@ -562,15 +617,19 @@ npm run dev
       <li>TDD — <code>docs/tdd/20-tdd.md</code></li>
       <li>API Design — <code>docs/tdd/22-api-design.md</code></li>
       <li>README — project root</li>
-      <li>Deployment — <code>docs/deployment/OCI.md</code></li>
+      <li>Deployment (Vercel + Railway + Supabase) — <code>docs/deployment/VERCEL_SUPABASE.md</code></li>
+      <li>Deployment (OCI) — <code>docs/deployment/OCI.md</code></li>
       <li>FastAPI documentation — https://fastapi.tiangolo.com/</li>
       <li>Next.js / React documentation — https://nextjs.org/ / https://react.dev/</li>
       <li>Google Gemini API — https://ai.google.dev/</li>
+      <li>Live frontend — https://vera-frontend-indol.vercel.app</li>
+      <li>Live API — https://vera-production-117c.up.railway.app</li>
     </ol>
 
     <div class="footer-note">
       Declaration: This report summarizes the VERA final project developed for CSE309 (Section 06).
       Source code is maintained on the <strong>main</strong> branch of the project repository.
+      Live demo deployed on Vercel + Railway + Supabase.
       Printed for evaluation on 13 August 2026.
     </div>
   </section>

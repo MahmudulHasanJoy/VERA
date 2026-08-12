@@ -12,9 +12,10 @@ from app.models import Notification, User
 logger = logging.getLogger("vera.notifications")
 
 
-def _send_email(to_address: str, subject: str, body: str) -> None:
+def send_email(to_address: str, subject: str, body: str) -> bool:
+    """Send email via SMTP. Returns True if sent (or attempted successfully)."""
     if not settings.email_enabled or not to_address:
-        return
+        return False
     try:
         message = EmailMessage()
         message["From"] = settings.smtp_from
@@ -27,8 +28,14 @@ def _send_email(to_address: str, subject: str, body: str) -> None:
             if settings.smtp_user:
                 smtp.login(settings.smtp_user, settings.smtp_password)
             smtp.send_message(message)
+        return True
     except Exception:
         logger.exception("Email notification failed for %s", to_address)
+        return False
+
+
+def _send_email(to_address: str, subject: str, body: str) -> None:
+    send_email(to_address, subject, body)
 
 
 def _send_sms(phone: str | None, body: str) -> None:

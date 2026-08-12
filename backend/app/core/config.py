@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     secret_key: str = "dev-secret-change-in-production"
     access_token_expire_minutes: int = 1440
     cors_origins: str = "http://localhost:3000"
+    # Used in password-reset email links
+    frontend_url: str = "http://localhost:3000"
+    password_reset_expire_minutes: int = 60
 
     # Optional notification channels (disabled unless configured)
     smtp_host: str = ""
