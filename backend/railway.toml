@@ -1,7 +1,10 @@
+# Prefer deploying from repo root with the root Dockerfile + railway.toml.
+# If Root Directory is set to backend, do NOT set a startCommand with bare $PORT
+# (Railway does not expand it). Leave start empty so Docker CMD/entrypoint runs,
+# or use: sh -c "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 [build]
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 healthcheckPath = "/health"
 restartPolicyType = "ON_FAILURE"

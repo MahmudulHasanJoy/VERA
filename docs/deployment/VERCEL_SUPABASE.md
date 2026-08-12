@@ -62,7 +62,7 @@ Railway must **not** run `npm start`. If logs show `Missing script: "start"`, it
 |---------|--------|
 | **Root Directory** | leave empty **or** `backend` |
 | **Builder** | Dockerfile (auto via `railway.toml`) |
-| **Custom Start Command** | leave empty (uses `entrypoint.sh`) — or `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+| **Custom Start Command** | **Leave EMPTY** — do not set `uvicorn ... --port $PORT` (Railway will not expand `$PORT` and the app will crash). The Dockerfile runs `./entrypoint.sh`, which expands `$PORT` correctly. |
 
 If you previously created a Node/frontend service, delete it and create a **new** service from GitHub so it picks up `railway.toml`.
 
