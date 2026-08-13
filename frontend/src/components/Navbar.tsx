@@ -48,6 +48,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [ready, setReady] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [unreadAlerts, setUnreadAlerts] = useState(0);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -67,6 +68,11 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         setUser(null);
       })
       .finally(() => setReady(true));
+
+    api
+      .unreadNotificationCount()
+      .then((data) => setUnreadAlerts(data.unread))
+      .catch(() => setUnreadAlerts(0));
   }, [pathname]);
 
   function handleLogout() {
@@ -151,17 +157,23 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
           {visibleLinks.map((link) => {
             const active = pathname === link.href;
+            const showBadge = link.href === "/notifications" && unreadAlerts > 0;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   active
                     ? "bg-red-50 text-red-700"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
-                {link.label}
+                <span>{link.label}</span>
+                {showBadge && (
+                  <span className="rounded-full bg-red-600 px-2 py-0.5 text-xs font-semibold text-white">
+                    {unreadAlerts > 99 ? "99+" : unreadAlerts}
+                  </span>
+                )}
               </Link>
             );
           })}

@@ -70,6 +70,26 @@ def test_create_and_list_emergencies(client, auth_headers):
     assert listing.status_code == 200
     assert len(listing.json()) >= 1
 
+    notes = client.get("/api/v1/notifications", headers=auth_headers)
+    assert notes.status_code == 200
+    assert any("emergency" in n["title"].lower() for n in notes.json())
+
+
+def test_donor_register_is_available_for_alerts(client):
+    donor = client.post(
+        "/api/v1/auth/register",
+        json={
+            "email": "donor2@example.com",
+            "password": "secret123",
+            "full_name": "Donor Two",
+            "role": "donor",
+            "blood_group": "O+",
+        },
+    )
+    assert donor.status_code == 201
+    body = donor.json()
+    assert body["available_for_donation"] is True
+
 
 def test_blood_request_creates_notification_for_donor(client, db):
     # Register citizen requester

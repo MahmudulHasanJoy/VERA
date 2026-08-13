@@ -25,7 +25,10 @@ class BloodService:
         self.repo.create(request)
 
         donors = self.repo.find_available_donors(payload.blood_group)
+        notified = 0
         for donor in donors:
+            if donor.id == requester.id:
+                continue
             create_notification(
                 self.db,
                 user_id=donor.id,
@@ -33,6 +36,19 @@ class BloodService:
                 message=f"{payload.patient_name} needs {payload.blood_group.value} blood.",
                 link="/blood",
             )
+            notified += 1
+
+        create_notification(
+            self.db,
+            user_id=requester.id,
+            title="Blood request posted",
+            message=(
+                f"Your request for {payload.blood_group.value} was submitted. "
+                f"{notified} matching donor{'s' if notified != 1 else ''} alerted in-app."
+            ),
+            link="/blood",
+            channels=False,
+        )
 
         return self.repo.save(request)
 

@@ -50,6 +50,7 @@ def register(payload: UserCreate, db: Session = Depends(get_db)) -> User:
         latitude=payload.latitude,
         longitude=payload.longitude,
         blood_group=payload.blood_group,
+        available_for_donation=payload.role == UserRole.DONOR and payload.blood_group is not None,
         hashed_password=get_password_hash(payload.password),
     )
     db.add(user)

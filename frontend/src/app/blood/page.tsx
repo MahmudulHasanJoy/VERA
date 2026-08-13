@@ -16,6 +16,7 @@ export default function BloodPage() {
   const [requests, setRequests] = useState<BloodRequest[]>([]);
   const [donors, setDonors] = useState<BloodDonor[]>([]);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [listLoading, setListLoading] = useState(true);
   const [searched, setSearched] = useState(false);
@@ -41,10 +42,12 @@ export default function BloodPage() {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     setError("");
+    setSuccess("");
     setLoading(true);
     try {
-      const created = await api.createBloodRequest(form);
-      setRequests((prev) => [created, ...prev]);
+      await api.createBloodRequest(form);
+      setRequests(await api.listBloodRequests());
+      setSuccess("Blood request posted. Matching donors were alerted — check Alerts for confirmation.");
       setForm({
         patient_name: "",
         blood_group: "O+",
@@ -79,6 +82,9 @@ export default function BloodPage() {
           title="Blood Requests"
           description="Create urgent blood requests, notify matching donors, and search available donors by group."
         />
+
+        {success && <p className="mb-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-700">{success}</p>}
+        {error && <p className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
 
         <div className="grid gap-8 lg:grid-cols-[360px_1fr]">
           <div className="space-y-6">

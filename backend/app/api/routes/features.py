@@ -210,6 +210,19 @@ def create_campaign(
     return campaign
 
 
+@router.get("/notifications/unread-count")
+def unread_notification_count(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> dict[str, int]:
+    count = (
+        db.query(Notification)
+        .filter(Notification.user_id == current_user.id, Notification.is_read.is_(False))
+        .count()
+    )
+    return {"unread": count}
+
+
 @router.get("/notifications", response_model=list[NotificationRead])
 def list_notifications(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     return (

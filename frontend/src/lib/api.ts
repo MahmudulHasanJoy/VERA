@@ -235,6 +235,10 @@ export const api = {
     return request<Notification[]>("/api/v1/notifications");
   },
 
+  unreadNotificationCount() {
+    return request<{ unread: number }>("/api/v1/notifications/unread-count");
+  },
+
   markNotificationRead(id: number) {
     return request<Notification>(`/api/v1/notifications/${id}/read`, { method: "PATCH" });
   },

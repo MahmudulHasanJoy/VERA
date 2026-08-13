@@ -26,8 +26,7 @@ class EmergencyRepository:
 
     def create(self, request: EmergencyRequest) -> EmergencyRequest:
         self.db.add(request)
-        self.db.commit()
-        self.db.refresh(request)
+        self.db.flush()
         return request
 
     def save(self, request: EmergencyRequest) -> EmergencyRequest:

@@ -134,7 +134,7 @@ export default function VolunteersPage() {
           </section>
         )}
 
-        {user?.role === "citizen" && (
+        {(user?.role === "citizen" || user?.role === "donor") && !user.available_for_donation && (
           <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="font-semibold text-slate-900">Become a blood donor</h2>
             <p className="mt-1 text-sm text-slate-500">Choose your blood group and start receiving matched request alerts.</p>
@@ -149,7 +149,10 @@ export default function VolunteersPage() {
                 onClick={() =>
                   api
                     .becomeDonor({ blood_group: donorGroup, available_for_donation: true })
-                    .then(() => setMessage(`Registered as ${donorGroup} donor.`))
+                    .then((profile) => {
+                      setUser(profile);
+                      setMessage(`Registered as ${donorGroup} donor — blood alerts are on.`);
+                    })
                 }
                 className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
               >

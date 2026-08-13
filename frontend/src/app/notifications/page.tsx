@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import AuthGuard from "@/components/AuthGuard";
@@ -50,6 +51,11 @@ export default function NotificationsPage() {
                   <h3 className="font-semibold text-slate-900">{n.title}</h3>
                   <p className="mt-1 text-sm text-slate-600">{n.message}</p>
                   <p className="mt-2 text-xs text-slate-500">{new Date(n.created_at).toLocaleString()}</p>
+                  {n.link && (
+                    <Link href={n.link} className="mt-2 inline-block text-sm font-medium text-red-600 hover:underline">
+                      Open related page
+                    </Link>
+                  )}
                 </div>
                 {!n.is_read && (
                   <button
